@@ -1,0 +1,15 @@
+com\automateddocsys\pma\webdata\bo\ClientAnswer.class
+com\automateddocsys\pma\webdata\bo\ClientRole_.class
+com\automateddocsys\pma\webdata\bo\WebClient.class
+com\automateddocsys\pma\repository\QuestionRepositoryCustom.class
+com\automateddocsys\pma\webdata\bo\PotentialQuestion.class
+com\automateddocsys\pma\repository\QuestionRepository.class
+com\automateddocsys\pma\webdata\bo\WebClient_.class
+com\automateddocsys\pma\webdata\bo\WebClient$AuthorityComparator.class
+com\automateddocsys\pma\repository\WebClientRepository.class
+com\automateddocsys\pma\webdata\bo\WebClient$1.class
+com\automateddocsys\pma\repository\QuestionRepositoryImpl.class
+com\automateddocsys\pma\webdata\bo\ClientAccount_.class
+com\automateddocsys\pma\webdata\config\DataConfiguration.class
+com\automateddocsys\pma\webdata\bo\ClientRole.class
+com\automateddocsys\pma\webdata\bo\ClientAccount.class

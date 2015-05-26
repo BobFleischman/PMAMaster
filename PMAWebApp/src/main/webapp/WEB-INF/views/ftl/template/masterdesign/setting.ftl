@@ -1,0 +1,1 @@
+<#set PMASERVER="http://prudentmanagement.com">

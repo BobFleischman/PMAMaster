@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--=======================================================================
+	- The contents of this file will	be loaded for each web application.
+	- The <ResourceLink/> tags simply reference the datasource that is
+	- loaded directly within the server.xml for Tomcat7/tc server. 
+	-===================================================================-->
+	
+<Context>
+	  
+</Context>
