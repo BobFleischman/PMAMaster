@@ -8,6 +8,8 @@ import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import com.automateddocsys.pma.web.mvc.models.AnswerSet;
+import com.automateddocsys.pma.web.mvc.models.VerificationItem;
 import com.automateddocsys.pma.webdata.bo.PotentialQuestion;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 
@@ -26,5 +28,7 @@ public interface WebClientManager {
 		
 		Collection<PotentialQuestion> getQuestions();
 		Map<String, String> getQuestionsAsMap();
+		void addAnswers(String name, AnswerSet answerSet);
+		boolean didSupplyCorrectAnswer(String name, VerificationItem verification);
 
 }

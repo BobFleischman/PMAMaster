@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.automateddocsys.pma.web.mvc.models.AnswerSet;
+import com.automateddocsys.pma.web.mvc.models.VerificationItem;
 import com.automateddocsys.pma.web.service.WebClientManager;
+import com.automateddocsys.pma.webdata.bo.ClientAnswer;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 
 @Controller
@@ -33,6 +37,7 @@ public class VerificationController extends AbstractBaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(VerificationController.class);
 
+	private static final Random random = new Random();
 //	@RequestMapping(method = RequestMethod.POST)
 //	public String verifyCode(String code) {
 //		String view = "redirect:/code?error";
@@ -50,10 +55,23 @@ public class VerificationController extends AbstractBaseController {
 //	}
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public String verifyCode(Model pModel,
+	public String verifyCode(AnswerSet answerSet, Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
+		clientManager.addAnswers(request.getUserPrincipal().getName(),answerSet);
 		return "redirect:/level2";
+	}
+
+	@RequestMapping(value="/confirm",method = RequestMethod.POST)
+	public String verifyCode(VerificationItem verification, Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		if (clientManager.didSupplyCorrectAnswer(request.getUserPrincipal().getName(),verification)) {
+			grantAuthority();
+			return "redirect:/reports";
+		} else {
+			return "redirect:/level2";
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -67,17 +85,33 @@ public class VerificationController extends AbstractBaseController {
 		pModel.addAttribute("user",request.getRemoteUser());
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
 		pModel.addAttribute("client",clientManager.getWebClientByUsername(request.getUserPrincipal().getName()));
-//		if (client.getAnswers().size() == 0) {
-			pModel.addAttribute("needAnswers", true);
+		pModel.addAttribute("needAnswers", 0);
+		if (client.getAnswers().size() == 0) {
+			System.out.println("------------------- No ANSWERS");
+			pModel.addAttribute("needAnswers", 1);
 			pModel.addAttribute("questions", clientManager.getQuestionsAsMap());
 			Map<String, String> m = clientManager.getQuestionsAsMap();
-			for(String l : m.keySet()) {
-				System.out.println(l);
-			}
-			System.out.println("Added questions " + clientManager.getQuestionsAsMap());
 			pModel.addAttribute("answers",new AnswerSet());
-//		}
+		} else {
+//			pModel.addAttribute("needAnswers", false);
+			int which = random.nextInt(2);
+			int ct = 0;
+			for (ClientAnswer answer : client.getAnswers()) {
+				if (ct == which) {
+					VerificationItem vi = new VerificationItem();
+					vi.setQuestionNumber(answer.getQuestion().getQuestionId());
+					vi.setQuestion(answer.getQuestion().getQuestion());
+					vi.setAnswer("");
+					pModel.addAttribute("verification", vi);
+					break;
+				}
+				ct++;
+			}
+		}
 		setServers(request,pModel);
+	    for (String key : pModel.asMap().keySet()) {
+	    	System.out.println(key + " : " + pModel.asMap().get(key));
+	    }
 	    runMerger("pages/verification.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
@@ -89,5 +123,6 @@ public class VerificationController extends AbstractBaseController {
 		Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}
+
 
 }

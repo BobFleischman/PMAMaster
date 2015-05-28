@@ -1,4 +1,4 @@
-package com.automateddocsys.pma.web.mvc;
+package com.automateddocsys.pma.web.mvc.models;
 
 public class AnswerSet {
 

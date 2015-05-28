@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/login**").permitAll()
 		.antMatchers("/level2").hasRole("USER")
 		.antMatchers("/").hasRole("VERIFIED")
+		.antMatchers("/reports").hasRole("VERIFIED")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()

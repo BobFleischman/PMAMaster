@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pma.repository.QuestionRepository;
 import com.automateddocsys.pma.repository.WebClientRepository;
+import com.automateddocsys.pma.web.mvc.models.AnswerSet;
+import com.automateddocsys.pma.web.mvc.models.VerificationItem;
 import com.automateddocsys.pma.webdata.bo.PotentialQuestion;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 
@@ -127,6 +129,31 @@ public class WebClientManagerImpl implements WebClientManager {
 			result.put(pq.getQuestionId().toString(), pq.getQuestion());
 		}
 		return result;
+	}
+
+	@Override
+	public void addAnswers(String pUserName, AnswerSet answerSet) {
+		WebClient client = clientRepository.findByUsername(pUserName);
+		client.addAnswer(
+				questionRepository.findOne(answerSet.getQuestion1()),
+				answerSet.getAnswer1()
+				);
+		client.addAnswer(
+				questionRepository.findOne(answerSet.getQuestion2()),
+				answerSet.getAnswer3()
+				);
+		client.addAnswer(
+				questionRepository.findOne(answerSet.getQuestion3()),
+				answerSet.getAnswer3()
+				);
+		clientRepository.save(client);
+		
+	}
+
+	@Override
+	public boolean didSupplyCorrectAnswer(String pUserName, VerificationItem verification) {
+		WebClient client = clientRepository.findByUsername(pUserName);
+		return client.getAnswerFor(verification.getQuestionNumber()).equalsIgnoreCase(verification.getAnswer());
 	}
 
 }

@@ -52,11 +52,15 @@
         <appender-ref ref="ROLLING"/>
       </logger>
 -->
-      <logger name="org.springframework" additivity="false">
-            <level value="DEBUG" />
+      <logger name="org.springframework.web" additivity="false">
+            <level value="WARN" />
         <appender-ref ref="STDOUT"/>
       </logger>
                     
+      <logger name="freemarker" additivity="false">
+            <level value="INFO" />
+        <appender-ref ref="STDOUT"/>
+      </logger>
 <!--       <logger name="org.hsqldb" additivity="false"> -->
 <!--             <level value="DEBUG" /> -->
 <!--         <appender-ref ref="STDOUT"/> -->
@@ -66,7 +70,7 @@
     <!-- setup log4j's root logger -->
     <!-- levels are DEBUG, INFO, WARN, ERROR, FATAL, all  -->
     <root>
-        <level value="INFO" />
+        <level value="WARN" />
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="STDERR"/>
         <appender-ref ref="ROLLING"/>
