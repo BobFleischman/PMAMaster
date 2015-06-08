@@ -63,8 +63,8 @@ public class AbstractBaseController {
 	 * @param pModel
 	 */
 	protected void updateModel(Model pModel) {
-		pModel.addAttribute(AbstractBaseController._PROJECTNAME, "(Put App Name in the AbstractBaseController)");
-		pModel.addAttribute(AbstractBaseController._FOOTER_TITLE, "(Put Footer Title in the AbstractBaseController)");
+		pModel.addAttribute(AbstractBaseController._PROJECTNAME, "Prudent Management Associates Client Services");
+		pModel.addAttribute(AbstractBaseController._FOOTER_TITLE, "Prudent Management Associates");
         pModel.addAttribute("now", new Date());
         if (!pModel.containsAttribute(_EXTRA_HEAD)) {
             pModel.addAttribute(_EXTRA_HEAD,"");

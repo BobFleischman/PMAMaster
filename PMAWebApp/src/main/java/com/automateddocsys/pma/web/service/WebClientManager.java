@@ -2,8 +2,8 @@ package com.automateddocsys.pma.web.service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public interface WebClientManager {
 		Set<PotentialQuestion> getRandom(int pCt);
 		
 		Collection<PotentialQuestion> getQuestions();
-		Map<String, String> getQuestionsAsMap();
+		SortedMap<String, String> getQuestionsAsMap();
 		void addAnswers(String name, AnswerSet answerSet);
 		boolean didSupplyCorrectAnswer(String name, VerificationItem verification);
 

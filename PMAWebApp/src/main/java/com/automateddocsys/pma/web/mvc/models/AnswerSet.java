@@ -62,4 +62,15 @@ public class AnswerSet {
 	public void setAnswer3(String answer3) {
 		this.answer3 = answer3;
 	}
+	
+	public boolean duplicateQuestions() {
+		if (
+				(question1 == question2) ||
+				(question1 == question3) ||
+				(question2 == question3)
+			) {
+			return true;
+		}
+		return false;
+	}
 }

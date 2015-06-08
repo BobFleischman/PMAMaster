@@ -63,7 +63,7 @@ public class TestData {
 
 	@Test
 	@Transactional
-	@Rollback(false)
+	//@Rollback(false)
 	public void makeTestClients() {
 		makeClient("0001","Nancy Kahn","kahn","kahn1");
 		makeClient("0466", "Caryl A. Golden Revocable Inter Vivos Trust dtd 3/10/97","golden","golden1");
@@ -73,7 +73,7 @@ public class TestData {
 	
 	@Test
 	@Transactional
-	@Rollback(false)
+	//@Rollback(false)
 	public void testAddAnswer() {
 		WebClient wc = new WebClient("9998","TEST CLIENT2","tester2","tester21");
 		//WebClient wc = webClientRepository.findByUsername("tester");
@@ -99,6 +99,8 @@ public class TestData {
 		wc.removeQuestion(0);
 		Assert.assertTrue(wc.getAnswers().size() == 1);
 		System.out.println(wc);
+		wc.clearAnswers();
+		Assert.assertTrue(wc.getAnswers().size() == 0);
 		//webClientRepository.save(wc);
 	}
 

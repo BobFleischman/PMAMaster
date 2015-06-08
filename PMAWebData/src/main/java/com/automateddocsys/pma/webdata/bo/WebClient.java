@@ -359,4 +359,8 @@ public class WebClient implements UserDetails, CredentialsContainer {
 		getAnswers().remove(ca);
 	}
 
+	public void clearAnswers() {
+		getAnswers().clear();
+	}
+
 }

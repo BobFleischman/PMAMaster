@@ -4,10 +4,10 @@
 package com.automateddocsys.pma.web.service;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,8 +97,11 @@ public class WebClientManagerImpl implements WebClientManager {
 	 */
 	@Override
 	@Transactional
-	public void removeWebClient(String pUsername) {
-		clientRepository.delete(pUsername);
+	public void removeWebClient(String pUserName) {
+		WebClient client = clientRepository.findByUsername(pUserName);
+		if (client != null) {
+			clientRepository.delete(client);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -123,8 +126,8 @@ public class WebClientManagerImpl implements WebClientManager {
 	}
 
 	@Override
-	public Map<String, String> getQuestionsAsMap() {
-		Map<String,String> result = new HashMap<String,String>();
+	public SortedMap<String, String> getQuestionsAsMap() {
+		SortedMap<String,String> result = new TreeMap<String,String>();
 		for (PotentialQuestion pq : getQuestions()) {
 			result.put(pq.getQuestionId().toString(), pq.getQuestion());
 		}

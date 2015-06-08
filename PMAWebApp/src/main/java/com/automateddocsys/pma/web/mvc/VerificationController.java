@@ -2,10 +2,10 @@ package com.automateddocsys.pma.web.mvc;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.SortedMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,6 +89,7 @@ public class VerificationController extends AbstractBaseController {
 		if (client.getAnswers().size() == 0) {
 			System.out.println("------------------- No ANSWERS");
 			pModel.addAttribute("needAnswers", 1);
+			SortedMap<String, String> questions = clientManager.getQuestionsAsMap();
 			pModel.addAttribute("questions", clientManager.getQuestionsAsMap());
 			Map<String, String> m = clientManager.getQuestionsAsMap();
 			pModel.addAttribute("answers",new AnswerSet());

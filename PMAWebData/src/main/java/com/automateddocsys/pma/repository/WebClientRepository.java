@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 
 @Service
-public interface WebClientRepository  extends JpaRepository<WebClient, String> {
+public interface WebClientRepository  extends JpaRepository<WebClient, Long> {
 
 	WebClient findByUsername(String pUserName);
 	
