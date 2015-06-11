@@ -68,3 +68,6 @@ $RECYCLE.BIN/
 PMAWebData/.project
 *.classpath
 DataTransfer/.classpath
+*.classpath
+PMAWebData/.project
+PMAWebData/.classpath
