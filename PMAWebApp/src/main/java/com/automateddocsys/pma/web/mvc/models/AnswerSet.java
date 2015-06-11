@@ -1,5 +1,7 @@
 package com.automateddocsys.pma.web.mvc.models;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class AnswerSet {
 
 	private Long question1 = (long) 0;
@@ -72,5 +74,10 @@ public class AnswerSet {
 			return true;
 		}
 		return false;
+	}
+	public boolean notAllQuestionsHaveAnswers() {
+		return (StringUtils.isEmpty(answer1) ||
+				StringUtils.isEmpty(answer2) ||
+				StringUtils.isEmpty(answer3));
 	}
 }

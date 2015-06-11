@@ -20,6 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -57,7 +58,16 @@ public class VerificationController extends AbstractBaseController {
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String verifyCode(AnswerSet answerSet, Model pModel,
 			HttpServletRequest request, 
-			HttpServletResponse response) {
+			HttpServletResponse response, Errors errors) {
+		if (answerSet.duplicateQuestions()) {
+			pModel.addAttribute("error", "You must answer three different questions");
+			return showVerificationCodeForm(pModel, request, response);
+		}
+		if (answerSet.notAllQuestionsHaveAnswers()){
+			pModel.addAttribute("error", "All three questions must have answers");
+			return showVerificationCodeForm(pModel, request, response);
+			
+		}
 		clientManager.addAnswers(request.getUserPrincipal().getName(),answerSet);
 		return "redirect:/level2";
 	}

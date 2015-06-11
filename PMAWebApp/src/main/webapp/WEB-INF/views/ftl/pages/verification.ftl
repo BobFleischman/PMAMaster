@@ -2,6 +2,9 @@
 <#assign serverDir>
     <@spring.url '/' />
 </#assign>
+<#if error??>
+<div class="errorMsg">${error}</div>
+</#if>
 <#if needAnswers == 1>
 <div class="post" id="post-37">
 <form method="POST" action="${serverDir}level2/register" >

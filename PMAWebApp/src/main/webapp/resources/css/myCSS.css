@@ -25,3 +25,9 @@
         -moz-border-radius: 2px;
         border: 1px solid #000;
     }
+.errorMsg {
+	padding: 20px;
+	margin: 20px;
+	background-color: red;
+        border: 1px solid #000;
+}

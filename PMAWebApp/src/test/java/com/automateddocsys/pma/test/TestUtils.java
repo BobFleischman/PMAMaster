@@ -17,7 +17,11 @@ public class TestUtils {
 		assertFalse(as.duplicateQuestions());
 		as.setQuestion1(4L);
 		assertTrue(as.duplicateQuestions());
-
+		assertTrue(as.notAllQuestionsHaveAnswers());
+		as.setAnswer1("XXX");
+		as.setAnswer2("XXX");
+		as.setAnswer3("XXX");
+		assertFalse(as.notAllQuestionsHaveAnswers());
 	}
 
 }
