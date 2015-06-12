@@ -71,3 +71,4 @@ DataTransfer/.classpath
 *.classpath
 PMAWebData/.project
 PMAWebData/.classpath
+*.component

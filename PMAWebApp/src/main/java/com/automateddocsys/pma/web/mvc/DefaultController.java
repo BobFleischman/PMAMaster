@@ -3,10 +3,10 @@ package com.automateddocsys.pma.web.mvc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 public class DefaultController {
 
-    @RequestMapping("/**")
+   // @RequestMapping("/**")
     public String notFound() {
         return "errors/404";
     }

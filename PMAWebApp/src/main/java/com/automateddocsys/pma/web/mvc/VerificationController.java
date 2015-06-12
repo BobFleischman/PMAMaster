@@ -59,14 +59,17 @@ public class VerificationController extends AbstractBaseController {
 	public String verifyCode(AnswerSet answerSet, Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response, Errors errors) {
+		boolean hasError = false;
 		if (answerSet.duplicateQuestions()) {
 			pModel.addAttribute("error", "You must answer three different questions");
-			return showVerificationCodeForm(pModel, request, response);
+			hasError = true;
 		}
 		if (answerSet.notAllQuestionsHaveAnswers()){
 			pModel.addAttribute("error", "All three questions must have answers");
-			return showVerificationCodeForm(pModel, request, response);
-			
+			hasError = true;
+		}
+		if (hasError) {
+			return askVerificationAnswers(request, response, pModel,answerSet);
 		}
 		clientManager.addAnswers(request.getUserPrincipal().getName(),answerSet);
 		return "redirect:/level2";
@@ -80,51 +83,66 @@ public class VerificationController extends AbstractBaseController {
 			grantAuthority();
 			return "redirect:/reports";
 		} else {
-			return "redirect:/level2";
+			pModel.addAttribute("error", "Your answer did not match!");
+			return askVerificationQuestion(request,response,pModel);
 		}
+	}
+
+	private String askVerificationQuestion(HttpServletRequest request, HttpServletResponse response, Model pModel) {
+		pModel.addAttribute("needAnswers", 0);
+		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
+		updateModel(pModel);
+		setServers(request,pModel);
+		loadtVerificationQuestion(pModel,client);
+	    runMerger("pages/verification.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
+
+	private String askVerificationAnswers(HttpServletRequest request, HttpServletResponse response, Model pModel, AnswerSet answerSet) {
+		setServers(request,pModel);
+		updateModel(pModel);
+		loadMapForQuestions(pModel, answerSet);
+	    runMerger("pages/verification.ftl", pModel, response, request);
+		return "template/pmabase";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String showVerificationCodeForm(Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
-		updateModel(pModel);
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);
 		pModel.addAttribute("principal",request.getUserPrincipal());
 		pModel.addAttribute("user",request.getRemoteUser());
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
-		pModel.addAttribute("client",clientManager.getWebClientByUsername(request.getUserPrincipal().getName()));
-		pModel.addAttribute("needAnswers", 0);
+		pModel.addAttribute("client",client);
 		if (client.getAnswers().size() == 0) {
-			System.out.println("------------------- No ANSWERS");
-			pModel.addAttribute("needAnswers", 1);
-			SortedMap<String, String> questions = clientManager.getQuestionsAsMap();
-			pModel.addAttribute("questions", clientManager.getQuestionsAsMap());
-			Map<String, String> m = clientManager.getQuestionsAsMap();
-			pModel.addAttribute("answers",new AnswerSet());
+			return askVerificationAnswers(request, response, pModel, new AnswerSet());
 		} else {
-//			pModel.addAttribute("needAnswers", false);
-			int which = random.nextInt(2);
-			int ct = 0;
-			for (ClientAnswer answer : client.getAnswers()) {
-				if (ct == which) {
-					VerificationItem vi = new VerificationItem();
-					vi.setQuestionNumber(answer.getQuestion().getQuestionId());
-					vi.setQuestion(answer.getQuestion().getQuestion());
-					vi.setAnswer("");
-					pModel.addAttribute("verification", vi);
-					break;
-				}
-				ct++;
-			}
+			return askVerificationQuestion(request, response, pModel);
 		}
-		setServers(request,pModel);
-	    for (String key : pModel.asMap().keySet()) {
-	    	System.out.println(key + " : " + pModel.asMap().get(key));
-	    }
-	    runMerger("pages/verification.ftl", pModel, response, request);
-		return "template/pmabase";
+	}
+
+	private void loadtVerificationQuestion(Model pModel, WebClient client) {
+		int which = random.nextInt(2);
+		int ct = 0;
+		for (ClientAnswer answer : client.getAnswers()) {
+			if (ct == which) {
+				VerificationItem vi = new VerificationItem();
+				vi.setQuestionNumber(answer.getQuestion().getQuestionId());
+				vi.setQuestion(answer.getQuestion().getQuestion());
+				vi.setAnswer("");
+				pModel.addAttribute("verification", vi);
+				break;
+			}
+			ct++;
+		}
+	}
+
+	private void loadMapForQuestions(Model pModel, AnswerSet answerSet) {
+		pModel.addAttribute("needAnswers", 1);
+		pModel.addAttribute("questions", clientManager.getQuestionsAsMap());
+		pModel.addAttribute("answers",answerSet);
 	}
 
 	private void grantAuthority() {

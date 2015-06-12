@@ -7,7 +7,7 @@
         <dependent-module archiveName="PMAWebData-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/PMAWebData/PMAWebData">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="PMAClientData"/>
         <property name="java-output-path" value="/PMAWebApp/target/classes"/>
+        <property name="context-root" value="PMAWebApp"/>
     </wb-module>
 </project-modules>
