@@ -20,4 +20,5 @@
 	<link rel='canonical' href='${PMASERVER}/?page_id=37' />
 	<link rel='shortlink' href='${PMASERVER}/?p=37' />
 	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<script type='text/javascript' src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js'></script>
 	<link rel="stylesheet" href="<@spring.url '/resources/css/myCSS.css'/>" type="text/css" />
