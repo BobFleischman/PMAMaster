@@ -45,19 +45,19 @@
             <div class="msg">${msg}</div>
         </#if>
 
-        <form name='loginForm' action="<@spring.url '/login' />" method='POST'>
+        <form id="loginForm" name='loginForm' action="<@spring.url '/login' />" method='POST'>
 
             <table>
                 <tr>
                     <td>User:</td>
                     <td>
-                        <input type='text'  id="username" name="username" value=''>
+                        <input type='text'  id="username" name="username" value='' required>
                     </td>
                 </tr>
                 <tr>
                     <td>Password:</td>
                     <td>
-                        <input type='password' id="password" name="password"/>
+                        <input type='password' id="password" name="password" required />
                     </td>
                 </tr>
                 <tr>
@@ -80,3 +80,18 @@
         </p>
 <!--    </div> -->
 </div>
+<script>
+	$().ready(function() {
+	$("loginForm").validate({
+	  rules: {
+    password: {
+      required: true
+    },
+      username: {
+    field: {
+      required: true
+    }
+  }
+	});
+});
+</script>

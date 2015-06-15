@@ -29,6 +29,7 @@ public interface WebClientManager {
 		Collection<PotentialQuestion> getQuestions();
 		SortedMap<String, String> getQuestionsAsMap();
 		void addAnswers(String name, AnswerSet answerSet);
-		boolean didSupplyCorrectAnswer(String name, VerificationItem verification);
+		boolean didSupplyCorrectAnswer(String pName, VerificationItem verification);
+		void clearAnswers(String pName);
 
 }

@@ -154,4 +154,21 @@ public class VerificationController extends AbstractBaseController {
 	}
 
 
+	@RequestMapping(value="/resetAnswers", method = RequestMethod.POST)
+	public String resetQuestions(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		clientManager.clearAnswers(request.getUserPrincipal().getName());
+		return "redirect:/level2";
+	}
+
+	@RequestMapping(value="/reset", method = RequestMethod.GET)
+	public String showClearAnswers(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		setServers(request,pModel);
+		updateModel(pModel);
+	    runMerger("pages/reset.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
 }

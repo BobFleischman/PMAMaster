@@ -143,7 +143,7 @@ public class WebClientManagerImpl implements WebClientManager {
 				);
 		client.addAnswer(
 				questionRepository.findOne(answerSet.getQuestion2()),
-				answerSet.getAnswer3()
+				answerSet.getAnswer2()
 				);
 		client.addAnswer(
 				questionRepository.findOne(answerSet.getQuestion3()),
@@ -157,6 +157,13 @@ public class WebClientManagerImpl implements WebClientManager {
 	public boolean didSupplyCorrectAnswer(String pUserName, VerificationItem verification) {
 		WebClient client = clientRepository.findByUsername(pUserName);
 		return client.getAnswerFor(verification.getQuestionNumber()).equalsIgnoreCase(verification.getAnswer());
+	}
+
+	@Override
+	public void clearAnswers(String pUserName) {
+		WebClient client = clientRepository.findByUsername(pUserName);
+		client.clearAnswers();
+		clientRepository.save(client);
 	}
 
 }
