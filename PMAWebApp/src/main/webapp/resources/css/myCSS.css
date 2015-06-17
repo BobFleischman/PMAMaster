@@ -69,8 +69,12 @@ li a .topMenu {
 	margin-right: 5px;
 	margin-bottom: 10px;
 	background-color: #f9e3b5;
+	width: 150px;
 }
 
-.pc {
-	width: 200px;
+label.pc {
+font-weight: bold;
+display: block;
+width: 150px;
+float: left;
 }
