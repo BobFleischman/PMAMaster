@@ -52,8 +52,8 @@
         <appender-ref ref="ROLLING"/>
       </logger>
 -->
-      <logger name="org.springframework.web" additivity="false">
-            <level value="WARN" />
+      <logger name="org.springframework" additivity="false">
+            <level value="DEBUG" />
         <appender-ref ref="STDOUT"/>
       </logger>
                     

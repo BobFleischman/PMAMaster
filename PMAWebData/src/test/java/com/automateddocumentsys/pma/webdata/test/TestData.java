@@ -65,9 +65,9 @@ public class TestData {
 	@Transactional
 	//@Rollback(false)
 	public void makeTestClients() {
-		makeClient("0001","Nancy Kahn","kahn","kahn1");
-		makeClient("0466", "Caryl A. Golden Revocable Inter Vivos Trust dtd 3/10/97","golden","golden1");
-		makeClient("0688", "Nancy E. Roll IRA","roll","roll1");
+		makeClient("0001","Nancy Kahn","kahn","kahn123");
+		makeClient("0466", "Caryl A. Golden Revocable Inter Vivos Trust dtd 3/10/97","golden","golden123");
+		makeClient("0688", "Nancy E. Roll IRA","roll","roll123");
 //
 	}
 	

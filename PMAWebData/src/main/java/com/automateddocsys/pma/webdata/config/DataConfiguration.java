@@ -34,7 +34,7 @@ public class DataConfiguration {
         ds.setUsername("security");
         ds.setPassword("springsecurity");
         //ds.setUrl("jdbc:mysql://phlmysql01/spring_security?rewriteBatchedStatements=true");
-        ds.setUrl("jdbc:mysql://192.168.2.53/pmamaster??autoReconnect=true&rewriteBatchedStatements=true");
+        ds.setUrl("jdbc:mysql://localhost/pmamaster?autoReconnect=true&rewriteBatchedStatements=true");
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         return ds;
     }
@@ -46,7 +46,7 @@ public class DataConfiguration {
         ds.setPassword("springsecurity");
         //ds.setUrl("jdbc:mysql://phlmysql01/spring_security?rewriteBatchedStatements=true");
         ds.setUrl("jdbc:mysql://localhost/pmamaster?rewriteBatchedStatements=true");
-        ds.setUrl("jdbc:mysql://192.168.2.53/pmamaster?rewriteBatchedStatements=true");
+        //ds.setUrl("jdbc:mysql://192.168.2.53/pmamaster?rewriteBatchedStatements=true");
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setInitialSize(5);
         ds.setTestOnBorrow(true);
