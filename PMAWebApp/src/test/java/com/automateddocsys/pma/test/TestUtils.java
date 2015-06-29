@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.automateddocsys.pma.web.mvc.models.AnswerSet;
+import com.automateddocsys.pma.web.mvc.models.PasswordChange;
 import com.automateddocsys.pma.web.utils.PasswordValidator;
 
 public class TestUtils {
@@ -34,5 +35,13 @@ public class TestUtils {
 		assertFalse(pw.validate(testWord));
 		testWord = testWord + "1";
 		assertTrue(pw.validate(testWord));
+	}
+	
+	@Test
+	public void testMatcher() {
+		PasswordChange pc = new PasswordChange();
+		pc.setPassword("ABC");
+		pc.setConfirm_password("ABC");
+		assertTrue(pc.doesMatch());
 	}
 }

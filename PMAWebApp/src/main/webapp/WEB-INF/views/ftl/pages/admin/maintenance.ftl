@@ -1,5 +1,5 @@
 <#import "/spring.ftl" as spring />
-<#assign serverDir><@spring.url '/' /></#assign>
+<#assign serverDir><@spring.url '' /></#assign>
 <style>
 </style>
 <div class="post" id="post-37">

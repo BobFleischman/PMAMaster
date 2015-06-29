@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.automateddocsys.pma.web.mvc.models.PasswordChange;
 import com.automateddocsys.pma.web.service.WebClientManager;
 
 /**
@@ -31,6 +33,7 @@ public class AdminController extends AbstractBaseController {
 			HttpServletResponse response) {
 		updateModel(pModel);
 		setServers(request,pModel);
+		pModel.addAttribute("error",null);
 	    runMerger("pages/admin/passwordchange.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
@@ -41,6 +44,28 @@ public class AdminController extends AbstractBaseController {
 		updateModel(pModel);
 		setServers(request,pModel);
 	    runMerger("pages/admin/maintenance.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
+	
+	@RequestMapping(value={"/changePassword"}, method={RequestMethod.POST})
+	public String changePassword(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			PasswordChange passwordChange
+			) {
+		updateModel(pModel);
+		setServers(request,pModel);
+		if (passwordChange.doesMatch()) {
+			if (clientManager.changePassword(request.getUserPrincipal().getName(), passwordChange.getOldpassword(), passwordChange.getPassword())) {
+				return "redirect:/reports/list";
+			} else {
+				pModel.addAttribute("error", "Old Password does not match");
+			    runMerger("pages/admin/passwordchange.ftl", pModel, response, request);
+				return "template/pmabase";
+			}
+		}
+		pModel.addAttribute("error", "New Password and Confirmation Password do not match");
+	    runMerger("pages/admin/passwordchange.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
 }

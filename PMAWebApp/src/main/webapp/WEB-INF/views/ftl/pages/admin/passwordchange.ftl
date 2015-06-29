@@ -1,9 +1,11 @@
 <#import "/spring.ftl" as spring />
-<#assign serverDir><@spring.url '/' /></#assign>
+<#assign serverDir><@spring.url '' /></#assign>
 <div class="post" id="post-37">
 <#include "../topMenu.ftl" />
-
-<form method="POST" id="signupForm" name="signupForm" action="${serverDir}admin/changePassword">
+        <#if error??>
+            <div class="error">${error}</div>
+        </#if>
+<form method="POST" id="signupForm" name="signupForm" action="${serverDir}/admin/changePassword">
   <fieldset>
     <legend>In order to change your password we need to confirm the old one</legend><br/>
 <p>
@@ -18,6 +20,7 @@
 <label class="pc" for="confirm_password">Confirm password</label>
 <input id="confirm_password" name="confirm_password" type="password"/>
 </p>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><br/>      
 <p>
 <input type="checkbox" id="showpassword">Show Passwords<br><br/>
 <input class="submit" type="submit" value="Submit">
@@ -29,6 +32,7 @@
 Must be between 8 and 20 characters long<br/>
 Must have 1 lower case letter<br/>
 Must have 1 upper case case letter<br/>
+Must have 1 digit<br/>
 Must have 1 of @#$%<br/>
 </p>
 <script>

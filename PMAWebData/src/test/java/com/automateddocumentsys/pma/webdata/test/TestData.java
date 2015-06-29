@@ -106,7 +106,7 @@ public class TestData {
 
 	private void makeClient(String pMastAccountNumber, String pMastCLientName, String pUserName, String pPassword) {
 		WebClient wc = new WebClient(pMastAccountNumber, pMastCLientName, pUserName, pPassword);
-		wc.addAuthority("USER");
+		wc.addAuthority("ROLE_USER");
 		try {
 			WebClient test = webClientRepository.findByUsername(pUserName);
 			if (test == null) {

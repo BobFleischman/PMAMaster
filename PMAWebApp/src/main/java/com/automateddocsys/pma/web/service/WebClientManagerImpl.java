@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pma.repository.QuestionRepository;
 import com.automateddocsys.pma.repository.WebClientRepository;
+import com.automateddocsys.pma.repository.service.WebClientService;
 import com.automateddocsys.pma.web.mvc.models.AnswerSet;
 import com.automateddocsys.pma.web.mvc.models.VerificationItem;
 import com.automateddocsys.pma.webdata.bo.PotentialQuestion;
@@ -32,6 +33,9 @@ public class WebClientManagerImpl implements WebClientManager {
 
 	@Autowired
 	WebClientRepository clientRepository;
+	
+	@Autowired
+	WebClientService clientService;
 	
 	@Autowired
 	QuestionRepository questionRepository;
@@ -164,6 +168,28 @@ public class WebClientManagerImpl implements WebClientManager {
 		WebClient client = clientRepository.findByUsername(pUserName);
 		client.clearAnswers();
 		clientRepository.save(client);
+	}
+
+	@Override
+	@Transactional
+	/**
+	 * This will throw an error is the old Password is not the same as what is in the system.
+	 */
+	public boolean changePassword(Long pAccountId, String pOldPassword, String pNewPassword) {
+		try {
+			clientService.changePassword(pAccountId, pOldPassword, pNewPassword);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+	@Override
+	public boolean changePassword(String pUserName, String pOldPassword, String pNewPassword) {
+		WebClient client = clientRepository.findByUsername(pUserName);
+		System.out.println("Checking for " + client);
+		return changePassword(client.getUserId(), pOldPassword, pNewPassword);
 	}
 
 }

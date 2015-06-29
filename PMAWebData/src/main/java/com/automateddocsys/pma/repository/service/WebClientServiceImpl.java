@@ -37,4 +37,14 @@ public class WebClientServiceImpl implements WebClientService {
 		
 	}
 
+	@Override
+	public void changePassword(Long pAccountId, String pOldPassword, String newPassword) {
+		WebClient client = webClientRepository.findOne(pAccountId);
+		if (!client.getPassword().equals(pOldPassword)) {
+			throw new RuntimeException("Old Password is not a match");
+		}
+		client.setPassword(newPassword);
+		webClientRepository.save(client);		
+	}
+
 }

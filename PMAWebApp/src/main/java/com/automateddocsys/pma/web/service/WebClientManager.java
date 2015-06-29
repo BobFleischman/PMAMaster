@@ -31,5 +31,8 @@ public interface WebClientManager {
 		void addAnswers(String name, AnswerSet answerSet);
 		boolean didSupplyCorrectAnswer(String pName, VerificationItem verification);
 		void clearAnswers(String pName);
+		boolean changePassword(Long pAccountId, String pOldPassword, String pNewPassword);
+		boolean changePassword(String pUserName, String pOldPassword, String pNewPassword);
+		
 
 }
