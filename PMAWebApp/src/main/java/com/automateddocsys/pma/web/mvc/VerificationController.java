@@ -81,7 +81,7 @@ public class VerificationController extends AbstractBaseController {
 			HttpServletResponse response) {
 		if (clientManager.didSupplyCorrectAnswer(request.getUserPrincipal().getName(),verification)) {
 			grantAuthority();
-			return "redirect:/reports";
+			return "redirect:/reports/list";
 		} else {
 			pModel.addAttribute("error", "Your answer did not match!");
 			return askVerificationQuestion(request,response,pModel);

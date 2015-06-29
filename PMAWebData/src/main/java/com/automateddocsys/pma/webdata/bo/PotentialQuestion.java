@@ -3,6 +3,8 @@
  */
 package com.automateddocsys.pma.webdata.bo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,8 +15,13 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-public class PotentialQuestion {
+public class PotentialQuestion implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1496456134854606672L;
+
 	@Id
 	private Long questionId;
 	

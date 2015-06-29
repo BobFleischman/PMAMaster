@@ -1,5 +1,7 @@
 package com.automateddocsys.pma.webdata.bo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +12,14 @@ import javax.persistence.ManyToOne;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity()
-public class ClientAnswer {
+public class ClientAnswer implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6578077782623748370L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerId;

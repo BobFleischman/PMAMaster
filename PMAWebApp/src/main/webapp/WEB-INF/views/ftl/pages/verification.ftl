@@ -26,5 +26,10 @@
 </#if>
 </div>
 <script>
-$("#verify").validate();
+$("#verify").validate({
+	errorElement: "div",
+	errorPlacement: function(error, element) {
+  		error.insertAfter(element);
+	}
+});
 </script>

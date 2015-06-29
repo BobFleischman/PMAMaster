@@ -88,10 +88,11 @@
       required: true
     },
       username: {
-    field: {
-      required: true
+    		field: {
+      		required: true
     }
-  }
+	  }}
 	});
 });
+
 </script>
