@@ -7,6 +7,7 @@
   <name>PMA Client Web Master</name>
   <description>Master Project for PMA</description>
   <modules>
+  	<module>PMAData</module>
   	<module>PMAWebData</module>
   	<module>DataTransfer</module>
   	<module>PMAWebApp</module>

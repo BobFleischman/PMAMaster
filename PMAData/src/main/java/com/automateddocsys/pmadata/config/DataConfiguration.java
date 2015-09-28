@@ -1,4 +1,4 @@
-package com.automateddocsys.pma.webdata.config;
+package com.automateddocsys.pmadata.config;
 
 import java.util.Map;
 import java.util.Properties;
@@ -18,25 +18,25 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.automateddocsys.pma.webdata.bo.WebClient;
+import com.automateddocsys.pmadata.bo.PositionTotal;
 
 
 @Configuration
-@EnableJpaRepositories(value={"com.automateddocsys.pma.repository"})
-@ComponentScan(basePackages={"com.automateddocsys.pma"})
+@EnableJpaRepositories(value={"com.automateddocsys.pmadata.repository"})
+@ComponentScan(basePackages={"com.automateddocsys.pmadata"})
 @EnableTransactionManagement
 public class DataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
-	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=pmamaster";
+	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
+	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
 /*	
  	private static Database DatabaseType = Database.MYSQL;
 	private static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	private static String DATABASE_URL = "jdbc:mysql://localhost/pmamaster?rewriteBatchedStatements=true";
 */	
     @Bean
-    public DataSource dataSourcePMAMaster() {
+    public DataSource dataSourcePMA() {
         //EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         DriverManagerDataSource ds = new org.springframework.jdbc.datasource.DriverManagerDataSource();
         ds.setUsername("security");
@@ -49,7 +49,7 @@ public class DataConfiguration {
     }
 
     @Bean
-    public DataSource poolDataSourcePMAMaster() {
+    public DataSource poolDataSourcePMA() {
     	BasicDataSource ds = new BasicDataSource();
         ds.setUsername("security");
         ds.setPassword("springsecurity");
@@ -64,15 +64,21 @@ public class DataConfiguration {
     }
     
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPMAMaster() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPMA() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(DATABASE_TYPE);
         vendorAdapter.setGenerateDdl(true);
         vendorAdapter.setShowSql(true);
+//        Map<String, Object> m = vendorAdapter.getJpaPropertyMap();
+//        m.put("hibernate.format_sql", true);
+//        for (String key : m.keySet()) {
+//        	System.out.println(key);
+//        }
+
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan(WebClient.class.getPackage().getName());
-        factory.setDataSource(dataSourcePMAMaster());
+        factory.setPackagesToScan(PositionTotal.class.getPackage().getName());
+        factory.setDataSource(poolDataSourcePMA());
         Properties props = new Properties();
         props.put("hibernate.show_sql", true );
         props.put("show_sql", true );
@@ -86,9 +92,9 @@ public class DataConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManagerPMAMaster() {
+    public PlatformTransactionManager transactionManagerPMA() {
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactoryPMAMaster().getObject());
+        txManager.setEntityManagerFactory(entityManagerFactoryPMA().getObject());
         return txManager;
     }
 }
