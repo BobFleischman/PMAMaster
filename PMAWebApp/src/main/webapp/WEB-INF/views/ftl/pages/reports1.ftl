@@ -20,25 +20,18 @@ padding: 5px;
 <th>Account Name</th>
 <th>Balance</th>
 </tr>
+<#list totals as total>
 <tr>
-<td><a href="details">A1234</a></td>
-<td>Joe Smith</td>
-<td class="money">$1,234,567.00</td>
+<td><a href="details">${total.clientNumber?c}</a></td>
+<td>${total.accountName}</td>
+<td class="money">$${total.twoDigitTotal}</td>
 </tr>
+</#list>
 <tr>
-<td><a href="details">A1235</a></td>
-<td>Jill Smith</td>
-<td class="money">$234,567.00</td>
-</tr>
-<tr>
-<td><a href="details">A1236</a></td>
-<td>Smith Children Trust</td>
-<td class="money">$987,654.00</td>
-</tr>
 <tr>
 <td></td>
 <td><strong>Total</strong></td>
-<td class="money">$2456788.00</td>
+<td class="money">$${grandTotal}</td>
 </tr>
 </table>
 </div>

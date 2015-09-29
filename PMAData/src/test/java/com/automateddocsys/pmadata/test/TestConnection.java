@@ -10,24 +10,35 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pmadata.bo.PositionTotal;
-import com.automateddocsys.pmadata.config.DataConfiguration;
+import com.automateddocsys.pmadata.bo.UserAccount;
+import com.automateddocsys.pmadata.bo.projections.AccountTotal;
+import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
+import com.automateddocsys.pmadata.repository.UserRepository;
+import com.automateddocsys.pmadata.service.UserAccountService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={DataConfiguration.class})
+@ContextConfiguration(classes={PMADataDataConfiguration.class})
 public class TestConnection {
 	
 	@Autowired
 	private PositionTotalRepository positionTotalRepository; 
 	
+	@Autowired
+	private UserRepository userRepository; 
+	
+	@Autowired
+	private UserAccountService userAccountService;
+	
 	@Test
-	public void testClearAnswers() {
+	public void testPositionRepo() {
 		System.out.println("Testing");
 		Sort sort = new Sort(Direction.ASC,"ClientNo","ObjectName","FundName");
-		List<PositionTotal> lst2 = positionTotalRepository.findAll(sort);
-		showTotals(lst2);
+//		List<PositionTotal> lst2 = positionTotalRepository.findAll(sort);
+//		showTotals(lst2);
 		List<PositionTotal> lst = positionTotalRepository.findByClientNo(355);
 		showTotals(lst);
 		List<Integer> lstClientNo = new ArrayList<Integer>();
@@ -38,6 +49,14 @@ public class TestConnection {
 		
 	}
 
+	@Test
+	@Transactional
+	public void testUserRepo() {
+		UserAccount ua = userRepository.findByUsername("fsnitzer");
+		System.out.println(ua);
+		
+	}
+
 	private void showTotals(List<PositionTotal> lst) {
 		System.out.println();System.out.println();System.out.println();
 		for (PositionTotal positionTotal : lst) {
@@ -45,4 +64,11 @@ public class TestConnection {
 		}
 	}
 
+	@Test
+	public void testTotals() {
+		List<AccountTotal> lst = userAccountService.getTotalForUserAccount(2);
+		for (AccountTotal accountTotal : lst) {
+			System.out.println(accountTotal.toString());
+		}
+	}
 }

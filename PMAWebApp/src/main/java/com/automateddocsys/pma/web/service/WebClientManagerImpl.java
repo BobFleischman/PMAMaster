@@ -44,7 +44,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#addWebClient(com.automateddocsys.pma.web.data.WebClient)
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public void addWebClient(WebClient p) {
 		// first see if there is already a client with this username
 		WebClient client = clientRepository.findByUsername(p.getUsername());
@@ -73,7 +73,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#updateWebClient(com.automateddocsys.pma.web.data.WebClient)
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public void updateWebClient(WebClient p) {
 		clientRepository.save(p);
 	}
@@ -82,7 +82,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#listWebClients()
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public List<WebClient> listWebClients() {
 		return clientRepository.findAll();
 	}
@@ -91,7 +91,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#getWebClientById(int)
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public WebClient getWebClientByUsername(String pUserName) {
 		return clientRepository.findByUsername(pUserName);
 	}
@@ -100,7 +100,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#removeWebClient(int)
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public void removeWebClient(String pUserName) {
 		WebClient client = clientRepository.findByUsername(pUserName);
 		if (client != null) {
@@ -112,14 +112,14 @@ public class WebClientManagerImpl implements WebClientManager {
 	 * @see com.automateddocsys.pma.web.service.WebClientManager#pageWebClients()
 	 */
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public Page<WebClient> pageWebClients(int page, int size) {
 		Page<WebClient> p = clientRepository.findAll(new PageRequest(page, size));
 		return p;
 	}
 
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	public Set<PotentialQuestion> getRandom(int pCt) {
 		return questionRepository.getRandom(pCt);
 	}
@@ -171,7 +171,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	}
 
 	@Override
-	@Transactional
+	@Transactional("transactionManagerPMAMaster")
 	/**
 	 * This will throw an error is the old Password is not the same as what is in the system.
 	 */

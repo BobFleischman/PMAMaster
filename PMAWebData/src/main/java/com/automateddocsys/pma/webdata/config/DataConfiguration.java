@@ -22,7 +22,9 @@ import com.automateddocsys.pma.webdata.bo.WebClient;
 
 
 @Configuration
-@EnableJpaRepositories(value={"com.automateddocsys.pma.repository"})
+@EnableJpaRepositories(entityManagerFactoryRef="entityManagerFactoryPMAMaster",
+transactionManagerRef="transactionManagerPMAMaster",
+value={"com.automateddocsys.pma.repository"})
 @ComponentScan(basePackages={"com.automateddocsys.pma"})
 @EnableTransactionManagement
 public class DataConfiguration {

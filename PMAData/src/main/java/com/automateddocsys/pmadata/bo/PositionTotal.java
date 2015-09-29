@@ -52,7 +52,7 @@ public class PositionTotal implements Serializable {
 	private double shares;
 
 	@Column(name="Total", precision=53)
-	private double total;
+	private BigDecimal total;
 
 	public PositionTotal() {
 	}
@@ -129,11 +129,11 @@ public class PositionTotal implements Serializable {
 		this.shares = shares;
 	}
 
-	public double getTotal() {
+	public BigDecimal getTotal() {
 		return this.total;
 	}
 
-	public void setTotal(double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 	@Override

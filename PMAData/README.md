@@ -9,3 +9,32 @@ FROM            dbo.Position INNER JOIN
 
 
 GO
+
+
+-- This shows the troubles
+
+Select * from Passwords
+where UserName in (
+
+SELECT Username
+  FROM [PMAWEB].[dbo].[Passwords]
+  group by Username
+  having count(*) > 1
+  )
+
+  order by Username
+  
+  -- and this shows the other side of it
+  
+Select * from Passwords
+where ClientNo in (
+
+SELECT ClientNo
+  FROM [PMAWEB].[dbo].[Passwords]
+  group by ClientNo
+  having count(*) > 1
+  )
+
+  order by ClientNo
+  
+  
