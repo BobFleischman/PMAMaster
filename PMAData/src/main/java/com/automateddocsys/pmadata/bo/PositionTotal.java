@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -54,6 +55,9 @@ public class PositionTotal implements Serializable {
 	@Column(name="Total", precision=53)
 	private BigDecimal total;
 
+	@Transient
+	private BigDecimal percentOfTotal = new BigDecimal(0);
+	
 	public PositionTotal() {
 	}
 
@@ -136,6 +140,30 @@ public class PositionTotal implements Serializable {
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+	public String getTicker() {
+		int spot = getFundName().lastIndexOf(" ");
+		String ticker = getFundName().substring(spot).trim();
+		return ticker;
+	}
+	
+	public String getFundNameOnly() {
+		int spot = getFundName().lastIndexOf(" ");
+		String nameOnly = getFundName().substring(0, spot).trim();
+		return nameOnly;
+	}
+
+	public BigDecimal getMarketValue() {
+		return getTotal().setScale(2, BigDecimal.ROUND_HALF_EVEN);
+	}
+	
+	public BigDecimal getPercentOfTotal() {
+		return percentOfTotal;
+	}
+
+	public void setPercentOfTotal(BigDecimal percentOfTotal) {
+		this.percentOfTotal = percentOfTotal;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

@@ -1,5 +1,6 @@
 package com.automateddocsys.pmadata.test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,14 @@ public class TestConnection {
 	@Test
 	public void testTotals() {
 		List<AccountTotal> lst = userAccountService.getTotalForUserAccount(2);
+		for (AccountTotal accountTotal : lst) {
+			System.out.println(accountTotal.toString());
+		}
+	}
+	
+	@Test
+	public void testPercentage() {
+		List<AccountTotal> lst = userAccountService.getAccountDetails(355);
 		for (AccountTotal accountTotal : lst) {
 			System.out.println(accountTotal.toString());
 		}

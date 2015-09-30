@@ -13,6 +13,7 @@ padding: 5px;
 <#include "topMenu.ftl" />
 <h1>${client.getMasterClientName()} Reports</h1>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
+<p>${updateDate}</p>
 <p>Click on any account for more detail.</p>
 <table>
 <tr>
@@ -22,7 +23,7 @@ padding: 5px;
 </tr>
 <#list totals as total>
 <tr>
-<td><a href="details">${total.clientNumber?c}</a></td>
+<td><a href="details/${total.clientNumber?c}">${total.clientNumber?c}</a></td>
 <td>${total.accountName}</td>
 <td class="money">$${total.twoDigitTotal}</td>
 </tr>

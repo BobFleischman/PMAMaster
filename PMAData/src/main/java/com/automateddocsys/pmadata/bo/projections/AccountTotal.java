@@ -7,7 +7,14 @@ public class AccountTotal {
 	private String accountName;
 	private BigDecimal totalValue = new BigDecimal("0");
 	private Integer clientNumber;
+	private BigDecimal percentOfTotal;
 	
+	public BigDecimal getPercentOfTotal() {
+		return percentOfTotal;
+	}
+	public void setPercentOfTotal(BigDecimal percentOfTotal) {
+		this.percentOfTotal = percentOfTotal;
+	}
 	public String getAccountName() {
 		return accountName;
 	}
@@ -29,6 +36,19 @@ public class AccountTotal {
 	public void setClientNumber(Integer clientNumber) {
 		this.clientNumber = clientNumber;
 	}
+	
+	public String getTicker() {
+		int spot = getAccountName().lastIndexOf(" ");
+		String ticker = getAccountName().substring(spot).trim();
+		return ticker;
+	}
+	
+	public String getNameOnly() {
+		int spot = getAccountName().lastIndexOf(" ");
+		String nameOnly = getAccountName().substring(0, spot).trim();
+		return nameOnly;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -36,13 +56,17 @@ public class AccountTotal {
 		builder.append(clientNumber);
 		builder.append(", accountName=");
 		builder.append(accountName);
+		builder.append(", ticker=");
+		builder.append(getTicker());
 		builder.append(", totalValue=");
 		builder.append(totalValue);
+		builder.append(", percentOfTotal=");
+		builder.append(getPercentOfTotal());
 		builder.append("]");
 		return builder.toString();
 	}
 
 	public BigDecimal getTwoDigitTotal() {
-		return totalValue.setScale(2, BigDecimal.ROUND_DOWN);
+		return totalValue.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
 }

@@ -4,5 +4,6 @@
 		<class>com.automateddocsys.pmadata.bo.PositionTotal</class>
 		<class>com.automateddocsys.pmadata.bo.UserAccount</class>
 		<class>com.automateddocsys.pmadata.bo.Permission</class>
+		<class>com.automateddocsys.pmadata.bo.UpdateDate</class>
 	</persistence-unit>
 </persistence>
