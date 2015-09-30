@@ -109,9 +109,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 			throw new RuntimeException("Either no or too many Last Update Dates");
 		}
 		Date update = lst.get(0).getLastDateUpdated();
-		System.out.println(update);
 		SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-		System.out.println(formatter.format(update));
 		return formatter.format(update);
 	}
 

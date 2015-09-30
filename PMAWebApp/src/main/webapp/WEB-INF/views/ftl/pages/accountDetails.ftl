@@ -10,13 +10,17 @@ padding: 5px;
 
 </style>
 <div class="post" id="post-37">
-<#include "topMenu.ftl" />
+<ul>
+<li><div class="topMenu"><a href="${serverDir}/reports/list">Account Info</a></div></li>
+<li><div class="topMenu">Reports</div></li>
+<li><div class="topMenu"><a href="export/${acctNo}">Exports</a></div></li>
+</ul>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>
 <#assign fundType = "zzz">
 <#assign subTotal = -1>
 <#assign grandTotalX = 0>
-<h1>${client.getMasterClientName()} Reports for ${acctNo}</h1>
+<h1>${accountName}</h1>
 <table>
 <tr><th>Shares</th><th>Funds</th><th>Ticker</th><th>Market Value</th><th>% Total</th></tr>
 <#list funds as fund>

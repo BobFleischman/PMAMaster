@@ -24,7 +24,7 @@ public class PositionTotal implements Serializable {
 	 */
 	private static final long serialVersionUID = -3693288139618767147L;
 
-
+//"ObjectName","fundName","ticker","Shares","MarketValue"
 	@Column(name="BookValue")
 	private BigDecimal bookValue;
 
