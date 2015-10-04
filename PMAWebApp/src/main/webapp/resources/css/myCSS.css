@@ -46,7 +46,7 @@ ul {
 	overflow: hidden;
 }
 
-li {
+li.LItopMenu {
 	float: left;
 }
 

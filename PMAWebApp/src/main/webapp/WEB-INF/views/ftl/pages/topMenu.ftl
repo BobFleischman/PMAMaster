@@ -1,5 +1,5 @@
-<ul>
-<li><div class="topMenu"><a href="${serverDir}/admin/maintenance">Maintenance</a></div></li>
-<li><div class="topMenu">Reports</div></li>
-<li><div class="topMenu">Exports</div></li>
+<ul class="ulTopMenu">
+<li><div class="LItopMenu"><a href="${serverDir}/admin/maintenance">Maintenance</a></div></li>
+<li><div class="LItopMenu">Reports</div></li>
+<li><div class="LItopMenu">Exports</div></li>
 </ul>

@@ -10,10 +10,10 @@ padding: 5px;
 
 </style>
 <div class="post" id="post-37">
-<ul>
-<li><div class="topMenu"><a href="${serverDir}/reports/list">Account Info</a></div></li>
-<li><div class="topMenu">Reports</div></li>
-<li><div class="topMenu"><a href="export/${acctNo}">Exports</a></div></li>
+<ul class="ulTopMenu">
+<li class="LItopMenu"><div class="topMenu"><a href="${serverDir}/reports/list">Account Info</a></div></li>
+<li class="LItopMenu"><div class="topMenu"><a onclick=showReportsMenu()>Reports</a></div></li>
+<li class="LItopMenu"><div class="topMenu"><a href="export/${acctNo}">Exports</a></div></li>
 </ul>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>
@@ -75,4 +75,12 @@ padding: 5px;
 </tr>
 
 </table>
+</div>
+<div id="dialog" title="Reports dialog">
+  <p>The following reports are available. Please choose a type:</p>
+  <ul>
+  <li class="reportChoices"><a href="#">Monthly</a></li>
+  <li class="reportChoices"><a href="#">Quarterly</a></li>
+  <li class="reportChoices"><a href="#">Annual</a></li>
+  <ul>	
 </div>

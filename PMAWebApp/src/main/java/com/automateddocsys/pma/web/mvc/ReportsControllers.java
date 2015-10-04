@@ -101,6 +101,18 @@ public class ReportsControllers extends AbstractBaseController {
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {
+			StringBuffer sb = new StringBuffer();
+			sb.append(addScriptLibrary("//code.jquery.com/jquery-1.11.1.min.js"));
+			sb.append("\n");
+			sb.append(addScriptLibrary("//code.jquery.com/ui/1.11.4/jquery-ui.js"));
+			sb.append("\n");			
+			sb.append(addScriptLibrary("/PMAClientData/resources/js/pma_reports.js"));
+			sb.append("\n");			
+			sb.append(addStyleLibrary("//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"));
+			
+			pModel.addAttribute(_EXTRA_HEAD,sb.toString());
+
+			
 			pModel.addAttribute("updateDate", userAccountService.getUpdateDate());
 			List<AccountTotal> summary = userAccountService.getAccountDetails(pAcctNumber);
 			for (AccountTotal accountTotal : summary) {
