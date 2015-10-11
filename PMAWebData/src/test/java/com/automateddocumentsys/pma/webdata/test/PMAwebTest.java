@@ -17,14 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pma.repository.WebClientRepository;
 import com.automateddocsys.pma.webdata.bo.WebClient;
-import com.automateddocsys.pma.webdata.config.DataConfiguration;
+import com.automateddocsys.pma.webdata.config.PMAWebDataConfiguration;
 
 /**
  * JUnit tests for pmaweb.
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={DataConfiguration.class})
+@ContextConfiguration(classes={PMAWebDataConfiguration.class})
 public class PMAwebTest /*extends BaseJNDITests*/ {
 	
 //	@Autowired

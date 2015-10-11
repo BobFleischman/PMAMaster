@@ -8,10 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.automateddocsys.pma.repository.service.WebClientService;
-import com.automateddocsys.pma.webdata.config.DataConfiguration;
+import com.automateddocsys.pma.webdata.config.PMAWebDataConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={DataConfiguration.class})
+@ContextConfiguration(classes={PMAWebDataConfiguration.class})
 public class TestService {
 	
 	@Autowired

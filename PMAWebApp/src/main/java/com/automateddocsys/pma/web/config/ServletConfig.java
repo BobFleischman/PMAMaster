@@ -7,11 +7,11 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
-import com.automateddocsys.pma.webdata.config.DataConfiguration;
+import com.automateddocsys.pma.webdata.config.PMAWebDataConfiguration;
 import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
 
 @Configuration
-@Import({WebConfig.class, SecurityConfig.class, DataConfiguration.class, PMADataDataConfiguration.class })
+@Import({WebConfig.class, SecurityConfig.class, PMAWebDataConfiguration.class, PMADataDataConfiguration.class })
 @ImportResource({
   "classpath:META-INF/spring/pmaweb-app-context.xml",
   "classpath:META-INF/spring/web-context.xml",

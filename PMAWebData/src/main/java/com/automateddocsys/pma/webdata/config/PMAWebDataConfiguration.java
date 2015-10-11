@@ -27,7 +27,7 @@ transactionManagerRef="transactionManagerPMAMaster",
 value={"com.automateddocsys.pma.repository"})
 @ComponentScan(basePackages={"com.automateddocsys.pma"})
 @EnableTransactionManagement
-public class DataConfiguration {
+public class PMAWebDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
