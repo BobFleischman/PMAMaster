@@ -144,9 +144,10 @@ public class PMAwebTest /*extends BaseJNDITests*/ {
 		return lastDayOfMonth;
 	}
 
+	@Ignore
 	@Test
 	@Transactional
-	@Rollback(false)
+	@Rollback(true)
 	public void testPMAClientRepository() {
 		Iterable<WebClient> lst = clientRepository.findAll();
 		for (WebClient pmaClient : lst) {

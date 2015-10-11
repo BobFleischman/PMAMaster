@@ -3,6 +3,7 @@ package com.automateddocumentsys.pma.webdata.test;
 import java.util.Set;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class TestData {
 	@Autowired
 	WebClientRepository webClientRepository;
 	
+	@Ignore
 	@Test
 	@Transactional
 	//@Rollback(false)
@@ -61,6 +63,8 @@ public class TestData {
 		}
 	}
 
+/*	
+	@Ignore
 	@Test
 	@Transactional
 	//@Rollback(false)
@@ -68,12 +72,13 @@ public class TestData {
 		makeClient("0001","Nancy Kahn","kahn","kahn123");
 		makeClient("0466", "Caryl A. Golden Revocable Inter Vivos Trust dtd 3/10/97","golden","golden123");
 		makeClient("0688", "Nancy E. Roll IRA","roll","roll123");
-//
 	}
+*/
 	
+	@Ignore
 	@Test
 	@Transactional
-	//@Rollback(false)
+	@Rollback(true)
 	public void testAddAnswer() {
 		WebClient wc = new WebClient("9998","TEST CLIENT2","tester2","tester21");
 		//WebClient wc = webClientRepository.findByUsername("tester");

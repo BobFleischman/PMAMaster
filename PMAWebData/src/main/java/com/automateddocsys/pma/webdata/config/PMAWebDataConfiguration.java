@@ -31,7 +31,11 @@ public class PMAWebDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=pmamaster";
+//	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=pmamaster";
+	private static String DATABASE_URL = "jdbc:sqlserver://PMAWEB;databaseName=PMAMASTER";
+	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
+	private static String DATABASE_USER = "pmawebmaster";
+
 /*	
  	private static Database DatabaseType = Database.MYSQL;
 	private static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
@@ -41,10 +45,10 @@ public class PMAWebDataConfiguration {
     public DataSource dataSourcePMAMaster() {
         //EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         DriverManagerDataSource ds = new org.springframework.jdbc.datasource.DriverManagerDataSource();
-        ds.setUsername("security");
-        ds.setPassword("springsecurity");
-//        ds.setUrl("jdbc:mysql://localhost/pmamaster?autoReconnect=true&rewriteBatchedStatements=true");
-//        ds.setDriverClassName("com.mysql.jdbc.Driver");                   
+        ds.setUsername(DATABASE_USER);
+        ds.setPassword(DATABASE_PASSWORD);
+//        ds.setUsername("security");
+//        ds.setPassword("springsecurity");
         ds.setUrl(DATABASE_URL);
         ds.setDriverClassName(DATABASE_DRIVER);
         return ds;
@@ -53,10 +57,10 @@ public class PMAWebDataConfiguration {
     @Bean
     public DataSource poolDataSourcePMAMaster() {
     	BasicDataSource ds = new BasicDataSource();
-        ds.setUsername("security");
-        ds.setPassword("springsecurity");
-//        ds.setUrl("jdbc:mysql://localhost/pmamaster?rewriteBatchedStatements=true");
-        //ds.setUrl("jdbc:mysql://192.168.2.53/pmamaster?rewriteBatchedStatements=true");
+        ds.setUsername(DATABASE_USER);
+        ds.setPassword(DATABASE_PASSWORD);
+//        ds.setUsername("security");
+//        ds.setPassword("springsecurity");
         ds.setInitialSize(5);
         ds.setTestOnBorrow(true);
         ds.setValidationQuery("select 1");

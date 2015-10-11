@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.automateddocsys</groupId>
   <artifactId>PMAMaster</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>PMA Client Web Master</name>
   <description>Master Project for PMA</description>

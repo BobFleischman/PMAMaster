@@ -10,7 +10,7 @@ import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.repository.UserRepository;
 
 @Component
-public class UserAccountServiceImpl implements UserAccountService {
+public class UserAccountTransferServiceImpl implements UserAccountTransferService {
 
 	@Autowired
 	UserRepository userRepository;

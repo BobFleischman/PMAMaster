@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.automateddocsys.pmadata.bo.UserAccount;
 
-public interface UserAccountService {
+public interface UserAccountTransferService {
 
 	List<UserAccount> findAll();
 

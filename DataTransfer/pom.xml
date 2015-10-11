@@ -3,20 +3,64 @@
   <parent>
     <groupId>com.automateddocsys</groupId>
     <artifactId>PMAMaster</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>DataTransfer</artifactId>
   <name>Data Transfer</name>
+  	<build>
+		<finalName>DataTransfer</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>CopyUsers</finalName>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.duanemorris.dmphonebookmobile.batch.DMPhoneBookMobileBatch</mainClass>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+							</transformers>
+							<!-- This next line is important because without it you get improperly 
+								signed Manifest error http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
   <dependencies>
   	<dependency>
   		<groupId>com.automateddocsys</groupId>
   		<artifactId>PMAData</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>com.automateddocsys</groupId>
   		<artifactId>PMAWebData</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>

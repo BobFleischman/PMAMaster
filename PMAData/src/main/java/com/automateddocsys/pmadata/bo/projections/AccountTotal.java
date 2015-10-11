@@ -38,6 +38,9 @@ public class AccountTotal {
 	}
 	
 	public String getTicker() {
+		if (getAccountName() == null) {
+			return "NO TICKER";
+		}
 		int spot = getAccountName().lastIndexOf(" ");
 		String ticker = getAccountName().substring(spot).trim();
 		return ticker;

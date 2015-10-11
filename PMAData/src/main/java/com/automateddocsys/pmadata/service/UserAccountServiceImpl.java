@@ -1,12 +1,13 @@
 package com.automateddocsys.pmadata.service;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +24,15 @@ import com.automateddocsys.pmadata.repository.UserRepository;
 @Component
 public class UserAccountServiceImpl implements UserAccountService {
 
+	private static final Logger log = LoggerFactory.getLogger(UserAccountServiceImpl.class);
 	private static final BigDecimal BD100 = new BigDecimal(100);
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	PositionTotalRepository positionTotalRepository;
-	
+
 	@Autowired
 	UpdateDateRepository updateDateRepository;
 
@@ -54,13 +56,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 		List<Permission> permissions = ua.getPermissions();
 		for (Permission permission : permissions) {
 			List<PositionTotal> position = positionTotalRepository.findByClientNo(permission.getValidAccount());
-			AccountTotal at = new AccountTotal();
-			for (PositionTotal positionTotal : position) {
-				at.setClientNumber(positionTotal.getClientNo());
-				at.setAccountName(positionTotal.getName1());
-				at.addValue(positionTotal.getMarketValue());
+			if (position.size() > 0) {
+				AccountTotal at = new AccountTotal();
+				for (PositionTotal positionTotal : position) {
+					at.setClientNumber(positionTotal.getClientNo());
+					at.setAccountName(positionTotal.getName1());
+					at.addValue(positionTotal.getMarketValue());
+				}
+				result.add(at);
+			} else {
+				log.warn(String.format("No Positions for Account %s which is related to Client Number %s ",
+						permission.getValidAccount(), pClientNo));
 			}
-			result.add(at);
 		}
 		return result;
 	}
@@ -92,7 +99,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 			accountTotal = accountTotal.add(positionTotal.getTotal());
 		}
 		for (AccountTotal at : result) {
-			at.setPercentOfTotal(at.getTotalValue().divide(accountTotal,3,BigDecimal.ROUND_HALF_EVEN).multiply(BD100));
+			at.setPercentOfTotal(
+					at.getTotalValue().divide(accountTotal, 3, BigDecimal.ROUND_HALF_EVEN).multiply(BD100));
 		}
 		return result;
 	}
@@ -116,8 +124,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	public void setPercentOfTotal(List<PositionTotal> positions, BigDecimal grandTotalPos) {
 		for (PositionTotal positionTotal : positions) {
-			positionTotal.setPercentOfTotal(positionTotal.getMarketValue().divide(grandTotalPos,3,BigDecimal.ROUND_HALF_EVEN).multiply(BD100));
+			positionTotal.setPercentOfTotal(positionTotal.getMarketValue()
+					.divide(grandTotalPos, 3, BigDecimal.ROUND_HALF_EVEN).multiply(BD100));
 		}
 	}
-	
+
 }

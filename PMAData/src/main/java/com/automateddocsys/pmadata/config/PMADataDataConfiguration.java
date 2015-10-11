@@ -31,7 +31,10 @@ public class PMADataDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
-	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
+	//private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
+	private static String DATABASE_URL = "jdbc:sqlserver://PMAWEB;databaseName=PMAWEB";
+	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
+	private static String DATABASE_USER = "pmawebmaster";
 /*	
  	private static Database DatabaseType = Database.MYSQL;
 	private static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
@@ -41,8 +44,8 @@ public class PMADataDataConfiguration {
     public DataSource dataSourcePMA() {
         //EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         DriverManagerDataSource ds = new org.springframework.jdbc.datasource.DriverManagerDataSource();
-        ds.setUsername("security");
-        ds.setPassword("springsecurity");
+        ds.setUsername(DATABASE_USER);
+        ds.setPassword(DATABASE_PASSWORD);
 //        ds.setUrl("jdbc:mysql://localhost/pmamaster?autoReconnect=true&rewriteBatchedStatements=true");
 //        ds.setDriverClassName("com.mysql.jdbc.Driver");                   
         ds.setUrl(DATABASE_URL);
@@ -53,8 +56,10 @@ public class PMADataDataConfiguration {
     @Bean
     public DataSource poolDataSourcePMA() {
     	BasicDataSource ds = new BasicDataSource();
-        ds.setUsername("security");
-        ds.setPassword("springsecurity");
+        ds.setUsername(DATABASE_USER);
+        ds.setPassword(DATABASE_PASSWORD);
+//        ds.setUsername("security");
+//        ds.setPassword("springsecurity");
 //        ds.setUrl("jdbc:mysql://localhost/pmamaster?rewriteBatchedStatements=true");
         //ds.setUrl("jdbc:mysql://192.168.2.53/pmamaster?rewriteBatchedStatements=true");
         ds.setInitialSize(5);
@@ -69,7 +74,7 @@ public class PMADataDataConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPMA() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(DATABASE_TYPE);
-        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setShowSql(true);
 //        Map<String, Object> m = vendorAdapter.getJpaPropertyMap();
 //        m.put("hibernate.format_sql", true);
