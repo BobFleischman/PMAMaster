@@ -26,6 +26,16 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.automateddocsys</groupId>
+			<artifactId>PMAData</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.automateddocsys</groupId>
+			<artifactId>PMAMasterReport</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring-framework-version}</version>
@@ -33,7 +43,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.2.5.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -51,18 +61,13 @@
 			<version>3.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.automateddocsys</groupId>
-			<artifactId>PMAData</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>net.sf.supercsv</groupId>
 			<artifactId>super-csv</artifactId>
 			<version>2.3.1</version>
 		</dependency>
 	</dependencies>
 	<properties>
-		<freemarker-version>2.3.21</freemarker-version>
+		<freemarker-version>2.3.23</freemarker-version>
 	</properties>
 	<packaging>war</packaging>
 </project>

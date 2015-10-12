@@ -51,12 +51,13 @@ public class CopyUsers {
 			client.setMasterClientNumber(userAccount.getClientNo().toString());
 			client.setMasterClientName(userAccount.getName());
 			client.setUsername(userAccount.getUsername());
-			client.setPassword(userAccount.getPassword());
+			//client.setPassword(userAccount.getPassword());
+			client.setPassword(userAccount.getUsername()+"1234");
 			if (client.getAuthorities().size() == 0) {
 				client.addAuthority("ROLE_USER");
 			}
 
-			System.out.println(client);
+			System.out.println(client.getMasterClientName());
 			webClientService.save(client);
 		}
 		log.info(String.format("Created %s new users on %s", newUsers, new Date()));

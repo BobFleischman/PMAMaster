@@ -22,5 +22,7 @@ public interface UserAccountService {
 	String getUpdateDate();
 
 	void setPercentOfTotal(List<PositionTotal> positions, BigDecimal grandTotalPos);
+	
+	String getClientName(int pClientNo);
 
 }

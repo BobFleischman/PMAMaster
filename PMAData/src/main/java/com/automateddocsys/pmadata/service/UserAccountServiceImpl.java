@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.automateddocsys.pmadata.bo.ClientName;
 import com.automateddocsys.pmadata.bo.Permission;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.UpdateDate;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
+import com.automateddocsys.pmadata.repository.ClientNameRepository;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
 import com.automateddocsys.pmadata.repository.UpdateDateRepository;
 import com.automateddocsys.pmadata.repository.UserRepository;
@@ -36,6 +38,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Autowired
 	UpdateDateRepository updateDateRepository;
 
+	@Autowired
+	ClientNameRepository clientNameRepository;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,7 +47,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	 * com.automateddocsys.PMADataTransfer.service.UserAccountService#findAll()
 	 */
 	@Override
-	@Transactional("transactionManagerPMA")
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
 	public List<UserAccount> findAll() {
 		return userRepository.findAll();
 	}
@@ -86,6 +90,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
 	public List<AccountTotal> getAccountDetails(Integer pAcctNumber) {
 		List<AccountTotal> result = new ArrayList<AccountTotal>();
 		List<PositionTotal> position = positionTotalRepository.findByClientNo(pAcctNumber);
@@ -111,13 +116,14 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
 	public String getUpdateDate() {
 		List<UpdateDate> lst = updateDateRepository.findAll();
 		if (lst.size() != 1) {
 			throw new RuntimeException("Either no or too many Last Update Dates");
 		}
 		Date update = lst.get(0).getLastDateUpdated();
-		SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
 		return formatter.format(update);
 	}
 
@@ -126,6 +132,17 @@ public class UserAccountServiceImpl implements UserAccountService {
 		for (PositionTotal positionTotal : positions) {
 			positionTotal.setPercentOfTotal(positionTotal.getMarketValue()
 					.divide(grandTotalPos, 3, BigDecimal.ROUND_HALF_EVEN).multiply(BD100));
+		}
+	}
+
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public String getClientName(int pClientNo) {
+		ClientName clientName = clientNameRepository.findByClientNo(pClientNo);
+		if (clientName == null) {
+			return "No Such Client as " + Integer.toString(pClientNo);
+		} else {
+			return clientName.getFullName();
 		}
 	}
 

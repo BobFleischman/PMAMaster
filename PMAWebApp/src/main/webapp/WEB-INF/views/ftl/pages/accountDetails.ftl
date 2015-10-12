@@ -10,17 +10,17 @@ padding: 5px;
 
 </style>
 <div class="post" id="post-37">
-<ul class="ulTopMenu">
-<li class="LItopMenu"><div class="topMenu"><a href="${serverDir}/reports/list">Account Info</a></div></li>
-<li class="LItopMenu"><div class="topMenu"><a onclick=showReportsMenu()>Reports</a></div></li>
-<li class="LItopMenu"><div class="topMenu"><a href="export/${acctNo}">Exports</a></div></li>
+<ul class="children">
+<li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Information</a></li>
+<li class="page_item page-item-159"><a href=<@spring.url "/reports/PDF/${acctNo?c}"/>>Reports</a></li>
+<li class="page_item page-item-159"><a href="export/${acctNo?c}">Exports</a></li>
 </ul>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>
 <#assign fundType = "zzz">
 <#assign subTotal = -1>
 <#assign grandTotalX = 0>
-<h1>${accountName}</h1>
+<h2>${accountName}</h2>
 <table>
 <tr><th>Shares</th><th>Funds</th><th>Ticker</th><th>Market Value</th><th>% Total</th></tr>
 <#list funds as fund>

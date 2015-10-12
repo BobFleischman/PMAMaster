@@ -9,8 +9,7 @@
 						href="mailto:PMA@prudentmanagement.com">PMA@prudentmanagement.com</a>
 				</div>
 				<div class="alignright">
-					1735 Market Street, Suite 3902<br /> Philadelphia, PA 19103-7598<br /> <a href="#" class="facebook"></a> <a href="#"
-						class="twitter"></a>
+					1735 Market Street, Suite 3902<br /> Philadelphia, PA 19103-7598<br /> 
 				</div>
 			</div>
 		</div>

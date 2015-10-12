@@ -5,6 +5,7 @@ package com.automateddocsys.pma.web.mvc;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
+import com.automateddocsys.pma.masterreport.bo.ReportRenamedFilesForWeb;
+import com.automateddocsys.pma.masterreport.service.ReportsService;
 import com.automateddocsys.pma.web.service.WebClientManager;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 import com.automateddocsys.pmadata.bo.PositionTotal;
@@ -44,6 +47,9 @@ public class ReportsControllers extends AbstractBaseController {
 
 	@Autowired
 	UserAccountService userAccountService;
+	
+	@Autowired
+	ReportsService reportService;
 
 	@RequestMapping(value = { "/list" })
 	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response) {
@@ -217,4 +223,42 @@ public class ReportsControllers extends AbstractBaseController {
 		return "template/pmabase";
 	}
 
+	@RequestMapping(value = { "/PDF/{pAcctNumber}" })
+	public String showPDF(@PathVariable(value = "pAcctNumber") Integer pAcctNumber, Model pModel, HttpServletRequest request,
+			HttpServletResponse response) {
+		updateModel(pModel);
+		String formattedDate = dateFormat.format(new Date());
+		pModel.addAttribute("serverTime", formattedDate);
+		pModel.addAttribute("principal", request.getUserPrincipal());
+		pModel.addAttribute("user", request.getRemoteUser());
+		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
+		pModel.addAttribute("client", client);
+		pModel.addAttribute("acctNo", pAcctNumber);
+		pModel.addAttribute("accountName",userAccountService.getClientName(pAcctNumber));
+		boolean hasRightsToThisAccount = userAccountService.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+		if (!hasRightsToThisAccount) {
+			throw new RuntimeException("You do not have permission to view this account");
+		}
+		setServers(request, pModel);
+		List<ReportRenamedFilesForWeb> monthlyReports = new ArrayList<ReportRenamedFilesForWeb>();
+		List<ReportRenamedFilesForWeb> quarterlyReports = new ArrayList<ReportRenamedFilesForWeb>();
+		List<ReportRenamedFilesForWeb> annualReports = new ArrayList<ReportRenamedFilesForWeb>();
+		List<ReportRenamedFilesForWeb> reports = reportService.findByPmaAccountNumber(pAcctNumber);
+		for (ReportRenamedFilesForWeb rrfw : reports) {
+			if ("M".equalsIgnoreCase(rrfw.getReportPeriod())) {
+				monthlyReports.add(rrfw);
+			} else if ("Q".equalsIgnoreCase(rrfw.getReportPeriod())) {
+				quarterlyReports.add(rrfw);
+			} else if ("A".equalsIgnoreCase(rrfw.getReportPeriod())) {
+				annualReports.add(rrfw);
+			}  
+		}
+		pModel.addAttribute("months", monthlyReports);
+		pModel.addAttribute("quarters", quarterlyReports);
+		pModel.addAttribute("annuals", annualReports);
+		runMerger("pages/reportsAvailable.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
+
+	
 }

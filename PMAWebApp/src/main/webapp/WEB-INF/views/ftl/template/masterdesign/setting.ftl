@@ -1,1 +1,1 @@
-<#set PMASERVER="http://prudentmanagement.com">
+<#set PMASERVER="https://prudentmanagement.com">

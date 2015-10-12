@@ -1,6 +1,5 @@
 package com.automateddocsys.pma.webdata.config;
 
-import java.util.Map;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -31,10 +30,15 @@ public class PMAWebDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-//	private static String DATABASE_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=pmamaster";
-	private static String DATABASE_URL = "jdbc:sqlserver://PMAWEB;databaseName=PMAMASTER";
+	private static String DATABASE_URL_DEV = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=pmamaster";
+	private static String DATABASE_URL_PMA = "jdbc:sqlserver://PMAWEB;databaseName=PMAMASTER";
 	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
 	private static String DATABASE_USER = "pmawebmaster";
+	private static String DATABASE_URL = "";
+    static {
+    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
+    	System.out.println(DATABASE_URL);
+    }
 
 /*	
  	private static Database DatabaseType = Database.MYSQL;

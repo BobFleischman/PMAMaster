@@ -111,8 +111,8 @@ public class AbstractBaseController {
 	    if (csrfToken != null) {
 	        pModel.addAttribute("_csrf",csrfToken);
 	    }		
-	    pModel.addAttribute("PMASERVER", "http://prudentmanagement.com");
-		pModel.addAttribute("PMAServer", "http://prudentmanagement.com");		
+	    pModel.addAttribute("PMASERVER", "https://prudentmanagement.com");
+		pModel.addAttribute("PMAServer", "https://prudentmanagement.com");		
 		pModel.addAttribute("SecurePath", "https://secure.prudentmanagement.com/secure");
 	}
 	

@@ -1,6 +1,5 @@
 package com.automateddocsys.pmadata.test;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.automateddocsys.pmadata.bo.ClientName;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
+import com.automateddocsys.pmadata.repository.ClientNameRepository;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
 import com.automateddocsys.pmadata.repository.UserRepository;
 import com.automateddocsys.pmadata.service.UserAccountService;
@@ -33,6 +34,9 @@ public class TestConnection {
 	
 	@Autowired
 	private UserAccountService userAccountService;
+	
+	@Autowired
+	private ClientNameRepository clientNameRepository;
 	
 	@Test
 	public void testPositionRepo() {
@@ -79,5 +83,11 @@ public class TestConnection {
 		for (AccountTotal accountTotal : lst) {
 			System.out.println(accountTotal.toString());
 		}
+	}
+	
+	@Test
+	public void testClientName() {
+		ClientName cName = clientNameRepository.findByClientNo(1640);
+		System.out.println(cName.getFullName());
 	}
 }

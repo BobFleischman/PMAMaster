@@ -10,7 +10,10 @@ padding: 5px;
 
 </style>
 <div class="post" id="post-37">
-<#include "topMenu.ftl" />
+<ul class="children">
+<li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Information</a></li>
+<li class="page_item page-item-166"><a href=<@spring.url "/login?logout"/>>Logout</a></li>
+</ul>
 <h1>${client.getMasterClientName()} Reports</h1>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>
@@ -35,4 +38,7 @@ padding: 5px;
 <td class="money">$${grandTotal}</td>
 </tr>
 </table>
+
+<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">If you would like to reset your password or change your security questions kindly <a href="<@spring.url "/account/maintenance"/>">click here</a>
+</p>
 </div>
