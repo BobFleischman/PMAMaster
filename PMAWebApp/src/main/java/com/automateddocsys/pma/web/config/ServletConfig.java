@@ -1,8 +1,5 @@
 package com.automateddocsys.pma.web.config;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -20,12 +17,13 @@ import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
   "classpath:META-INF/spring/web-context.xml",
 })
 public class ServletConfig {
-	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
-	private static String DATABASE_URL_PMAWEB = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
-	private static String DATABASE_URL_PMAMASTER = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAMASTER";
-	//private static String DATABASE_URL = "jdbc:sqlserver://PMAWEB;databaseName=PMAWEB";
-	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
-	private static String DATABASE_USER = "pmawebmaster";
+	
+//	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
+//	private static String DATABASE_URL_PMAWEB = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
+//	private static String DATABASE_URL_PMAMASTER = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAMASTER";
+//	//private static String DATABASE_URL = "jdbc:sqlserver://PMAWEB;databaseName=PMAWEB";
+//	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
+//	private static String DATABASE_USER = "pmawebmaster";
 	
 //	<!-- freemarker config -->
 //	<beans:bean id="freemarkerConfig"
@@ -51,7 +49,7 @@ public class ServletConfig {
 		return result;
 	}
 	
-    @Bean
+/*    @Bean
     public DataSource poolDataSourcePMA() {
     	BasicDataSource ds = new BasicDataSource();
         ds.setUsername(DATABASE_USER);
@@ -83,5 +81,5 @@ public class ServletConfig {
         ds.setDriverClassName(DATABASE_DRIVER);
     	return ds;
     }
-
+*/
 }

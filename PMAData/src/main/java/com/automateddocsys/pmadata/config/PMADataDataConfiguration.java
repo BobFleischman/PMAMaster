@@ -35,7 +35,7 @@ public class PMADataDataConfiguration {
 	private static String DATABASE_URL_PMA = "jdbc:sqlserver://PMAWEB;databaseName=PMAWEB";
 	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
 	private static String DATABASE_USER = "pmawebmaster";
-	private static String DATABASE_URL = "";
+	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
     	System.out.println(DATABASE_URL);
