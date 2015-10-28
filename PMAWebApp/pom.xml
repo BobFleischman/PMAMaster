@@ -7,8 +7,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>PMAWebApp</artifactId>
-	<name>Web Application with Security</name>
+	<name>PMA Web Client Portal</name>
 	<build>
+		<finalName>secure</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

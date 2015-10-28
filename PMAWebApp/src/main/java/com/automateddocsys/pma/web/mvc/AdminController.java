@@ -25,11 +25,13 @@ public class AdminController extends AbstractBaseController {
 	@Autowired
 	WebClientManager clientManager;
 	
-	@RequestMapping(value={"/questions"})
+	@RequestMapping(value={"/clearQuestions"})
 	public String clearQuestions(Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
 		updateModel(pModel);
+		System.out.println("About to clear questions for " + request.getUserPrincipal().getName());
+		clientManager.clearAnswers(request.getUserPrincipal().getName());
 		setServers(request,pModel);
 		pModel.addAttribute("error",null);
 	    runMerger("pages/admin/questionsCleared.ftl", pModel, response, request);

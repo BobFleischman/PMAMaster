@@ -5,6 +5,7 @@
 <div class="post" id="post-37">
 <#if error??><div class="error">${error}</div></#if>
 <#if needAnswers == 1>
+<h2>Please choose three different questions from the list below.</h2>
 <form method="POST" id="verify" action="${serverDir}level2/register" >
 <@spring.formSingleSelect 'answers.question1', questions, ''/> 
 <@spring.formInput 'answers.answer1', 'class="answer" required'  />

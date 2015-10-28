@@ -66,7 +66,7 @@ public class ReportsControllers extends AbstractBaseController {
 		BigDecimal grandTotal = calculateGrandTotal(totals);
 		pModel.addAttribute("grandTotal", grandTotal);
 		setServers(request, pModel);
-		runMerger("pages/reports1.ftl", pModel, response, request);
+		runMerger("pages/accountList.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
 
