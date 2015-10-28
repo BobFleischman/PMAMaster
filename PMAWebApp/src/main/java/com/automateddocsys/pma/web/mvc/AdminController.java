@@ -3,8 +3,6 @@
  */
 package com.automateddocsys.pma.web.mvc;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +26,7 @@ public class AdminController extends AbstractBaseController {
 	WebClientManager clientManager;
 	
 	@RequestMapping(value={"/questions"})
-	public String startingPlace(Model pModel,
+	public String clearQuestions(Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
 		updateModel(pModel);
