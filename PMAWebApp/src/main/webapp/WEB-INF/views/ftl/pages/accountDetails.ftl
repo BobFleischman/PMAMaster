@@ -76,11 +76,3 @@ padding: 5px;
 
 </table>
 </div>
-<div id="dialog" title="Reports dialog">
-  <p>The following reports are available. Please choose a type:</p>
-  <ul>
-  <li class="reportChoices"><a href="#">Monthly</a></li>
-  <li class="reportChoices"><a href="#">Quarterly</a></li>
-  <li class="reportChoices"><a href="#">Annual</a></li>
-  <ul>	
-</div>

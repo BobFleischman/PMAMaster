@@ -27,12 +27,12 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.automateddocsys.pma.masterreport.bo.ReportRenamedFilesForWeb;
-import com.automateddocsys.pma.masterreport.service.ReportsService;
 import com.automateddocsys.pma.web.service.WebClientManager;
 import com.automateddocsys.pma.webdata.bo.WebClient;
 import com.automateddocsys.pmadata.bo.PositionTotal;
+import com.automateddocsys.pmadata.bo.ReportRenamedFilesForWeb;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
+import com.automateddocsys.pmadata.service.ReportsService;
 import com.automateddocsys.pmadata.service.UserAccountService;
 
 /**
@@ -160,7 +160,7 @@ public class ReportsControllers extends AbstractBaseController {
 		if (!hasRightsToThisAccount) {
 			throw new RuntimeException("You do not have permission to view this account");
 		} else {
-			String csvFileName = "funds.csv";
+			String csvFileName = "funds" + pAcctNumber.toString() + ".csv";
 
 			response.setContentType("text/csv");
 
@@ -210,7 +210,6 @@ public class ReportsControllers extends AbstractBaseController {
 	@RequestMapping(value = { "/d/{x}" })
 	public String showD(@PathVariable(value = "x") String x, Model pModel, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println(x);
 		updateModel(pModel);
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);

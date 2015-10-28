@@ -8,6 +8,8 @@
 *.war
 *.ear
 /target
+/log4j
+*/log4j*
 */target*
 */.settings*
 /.settings
@@ -66,12 +68,13 @@ $RECYCLE.BIN/
 *.lnk
 *.classpath
 PMAWebData/.project
+PMAClientData/.project
 *.classpath
 DataTransfer/.classpath
 *.classpath
 PMAWebData/.project
 PMAWebData/.classpath
+PMAClientData/.classpath
 *.component
 PMAWebApp/.settings/org.eclipse.wst.common.component
 *.log
-*.2015-10-11

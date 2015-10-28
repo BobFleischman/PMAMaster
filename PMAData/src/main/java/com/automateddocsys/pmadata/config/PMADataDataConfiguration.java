@@ -38,7 +38,7 @@ public class PMADataDataConfiguration {
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
-    	System.out.println(DATABASE_URL);
+    	//System.out.println(DATABASE_URL);
     }
 /*	
  	private static Database DatabaseType = Database.MYSQL;

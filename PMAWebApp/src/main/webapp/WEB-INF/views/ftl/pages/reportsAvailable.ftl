@@ -35,8 +35,8 @@ table {
 th {
     height: 50px;
     text-align: left;
-    background-color: green;
-    color: white;
+    background-color: lightgray;
+    color: #21343d;
     padding-left: 10px;
 }
 td {
@@ -68,7 +68,7 @@ td {
 <tr class="${zebra(report?index)}">
    <td>${report.getReportDate()}</td>
    <td>${report.getReportTypeName()}</td>
-   <td><a href="<@spring.url "/reports/download/${report.getReportId()?c}"/>">Download</a></td>
+   <td><a href="<@spring.url "/download-document/${acctNo?c}/${report.getReportId()?c}"/>" target="_blank">Download</a></td>
 </tr>
 </#list>  
   </table>
@@ -84,7 +84,7 @@ td {
 <tr class="${zebra(report?index)}">
    <td>${report.getReportDate()}</td>
    <td>${report.getReportTypeName()}</td>
-   <td><a href="<@spring.url "/reports/download/${report.getReportId()?c}"/>">Download</a></td>
+   <td><a href="<@spring.url "/download-document/${acctNo?c}/${report.getReportId()?c}"/>" target="_blank">Download</a></td>
 </tr>
 </#list>  
   </table>
@@ -100,7 +100,7 @@ td {
 <tr class="${zebra(report?index)}">
    <td>${report.getReportDate()}</td>
    <td>${report.getReportTypeName()}</td>
-   <td><a href="<@spring.url "/reports/download/${report.getReportId()?c}"/>">Download</a></td>
+   <td><a href="<@spring.url "/download-document/${acctNo?c}/${report.getReportId()?c}"/>" target="_blank">Download</a></td>
 </tr>
 </#list>  
   </table>

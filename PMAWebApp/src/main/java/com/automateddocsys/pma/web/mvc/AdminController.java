@@ -27,6 +27,17 @@ public class AdminController extends AbstractBaseController {
 	@Autowired
 	WebClientManager clientManager;
 	
+	@RequestMapping(value={"/questions"})
+	public String startingPlace(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		updateModel(pModel);
+		setServers(request,pModel);
+		pModel.addAttribute("error",null);
+	    runMerger("pages/admin/questionsCleared.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
+	
 	@RequestMapping(value={"/password"})
 	public String startingPlace(Model pModel,
 			HttpServletRequest request, 

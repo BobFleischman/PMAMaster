@@ -39,6 +39,6 @@ padding: 5px;
 </tr>
 </table>
 
-<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">If you would like to reset your password or change your security questions kindly <a href="<@spring.url "/account/maintenance"/>">click here</a>
+<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">If you would like to change your security questions kindly <a href="<@spring.url "/account/questions"/>">click here</a>
 </p>
 </div>
