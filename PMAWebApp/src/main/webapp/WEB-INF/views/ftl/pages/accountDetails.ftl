@@ -20,7 +20,7 @@ padding: 5px;
 <#assign fundType = "zzz">
 <#assign subTotal = -1>
 <#assign grandTotalX = 0>
-<h2>${accountName}</h2>
+<h2>{$accountNo} ${accountName}</h2>
 <table>
 <tr><th>Shares</th><th>Funds</th><th>Ticker</th><th>Market Value</th><th>% Total</th></tr>
 <#list funds as fund>

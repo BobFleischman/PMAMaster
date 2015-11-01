@@ -20,14 +20,14 @@ padding: 5px;
 <p>Click on any account for more detail.</p>
 <table>
 <tr>
-<th>Account Number</th>
-<th>Account Name</th>
+<th>Number</th>
+<th>Name</th>
 <th>Balance</th>
 </tr>
 <#list totals as total>
 <tr>
 <td><a href="details/${total.clientNumber?c}">${total.clientNumber?c}</a></td>
-<td>${total.accountName}</td>
+<td><a href="details/${total.clientNumber?c}">${total.accountName}</a></td>
 <td class="money">$${total.twoDigitTotal}</td>
 </tr>
 </#list>
