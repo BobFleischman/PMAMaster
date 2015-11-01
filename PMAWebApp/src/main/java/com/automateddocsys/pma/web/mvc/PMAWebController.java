@@ -44,7 +44,7 @@ public class PMAWebController extends AbstractBaseController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = {"/login"}, method = { RequestMethod.GET })
+	@RequestMapping(value = {"/login","/login/login.cfm"}, method = { RequestMethod.GET })
 	public String login(Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response,		

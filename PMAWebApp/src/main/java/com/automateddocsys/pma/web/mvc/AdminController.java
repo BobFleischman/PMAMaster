@@ -3,8 +3,6 @@
  */
 package com.automateddocsys.pma.web.mvc;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,6 +24,19 @@ import com.automateddocsys.pma.web.service.WebClientManager;
 public class AdminController extends AbstractBaseController {
 	@Autowired
 	WebClientManager clientManager;
+	
+	@RequestMapping(value={"/clearQuestions"})
+	public String clearQuestions(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		updateModel(pModel);
+		System.out.println("About to clear questions for " + request.getUserPrincipal().getName());
+		clientManager.clearAnswers(request.getUserPrincipal().getName());
+		setServers(request,pModel);
+		pModel.addAttribute("error",null);
+	    runMerger("pages/admin/questionsCleared.ftl", pModel, response, request);
+		return "template/pmabase";
+	}
 	
 	@RequestMapping(value={"/password"})
 	public String startingPlace(Model pModel,

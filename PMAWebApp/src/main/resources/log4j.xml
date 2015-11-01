@@ -52,15 +52,15 @@
         <appender-ref ref="ROLLING"/>
       </logger>
 -->
-      <logger name="org.springframework" additivity="false">
-            <level value="INFO" />
-        <appender-ref ref="STDOUT"/>
-      </logger>
+<!--       <logger name="org.springframework" additivity="false"> -->
+<!--             <level value="INFO" /> -->
+<!--         <appender-ref ref="STDOUT"/> -->
+<!--       </logger> -->
                     
-      <logger name="freemarker" additivity="false">
-            <level value="INFO" />
-        <appender-ref ref="STDOUT"/>
-      </logger>
+<!--       <logger name="freemarker" additivity="false"> -->
+<!--             <level value="INFO" /> -->
+<!--         <appender-ref ref="STDOUT"/> -->
+<!--       </logger> -->
 <!--       <logger name="org.hsqldb" additivity="false"> -->
 <!--             <level value="DEBUG" /> -->
 <!--         <appender-ref ref="STDOUT"/> -->

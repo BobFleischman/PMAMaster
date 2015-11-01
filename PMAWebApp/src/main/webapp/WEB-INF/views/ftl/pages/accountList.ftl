@@ -39,6 +39,17 @@ padding: 5px;
 </tr>
 </table>
 
-<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">If you would like to reset your password or change your security questions kindly <a href="<@spring.url "/account/maintenance"/>">click here</a>
+<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">
+If you would like to change your security questions kindly <a id="clearQuestions" href="#">click here</a>
 </p>
 </div>
+
+<script>
+$().ready(function() {
+	$("#clearQuestions").on("click",function(){
+		if (window.confirm("Are you sure you want to reset your security questions?")) {
+			window.location.href="${serverDir}/admin/clearQuestions";
+		} 
+	});
+});
+</script>

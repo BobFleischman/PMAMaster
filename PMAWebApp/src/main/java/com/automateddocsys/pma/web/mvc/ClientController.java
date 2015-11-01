@@ -37,7 +37,6 @@ public class ClientController extends AbstractBaseController {
 			@RequestParam(value = "page", defaultValue="0", required = false) Integer page,
 			@RequestParam(value = "size", defaultValue="20", required = false) Integer size) {
 		//Page<WebClient> data = clientManager.pageWebClients(page, size);
-		System.out.println("client controller");
 		List<WebClient> data = clientManager.listWebClients();
 		setServers(request,pModel);
 		StringBuffer sb = new StringBuffer();

@@ -188,7 +188,6 @@ public class WebClientManagerImpl implements WebClientManager {
 	@Override
 	public boolean changePassword(String pUserName, String pOldPassword, String pNewPassword) {
 		WebClient client = clientRepository.findByUsername(pUserName);
-		System.out.println("Checking for " + client);
 		return changePassword(client.getUserId(), pOldPassword, pNewPassword);
 	}
 
