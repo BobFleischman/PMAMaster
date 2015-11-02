@@ -20,7 +20,7 @@ padding: 5px;
 <#assign fundType = "zzz">
 <#assign subTotal = -1>
 <#assign grandTotalX = 0>
-<h2>{$accountNo} ${accountName}</h2>
+<h2>${acctNo?c} ${accountName}</h2>
 <table>
 <tr><th>Shares</th><th>Funds</th><th>Ticker</th><th>Market Value</th><th>% Total</th></tr>
 <#list funds as fund>
@@ -32,9 +32,9 @@ padding: 5px;
 <td></td>
 <td class="money"><strong>SUB-TOTAL</strong></td>
 <td></td>
-<td class="money">${subTotal}</td>
+<td class="money">${subTotal?string.currency}</td>
 <#assign subPct = (subTotal / grandTotal) * 100>
-<td class="money">${subPct?string["0.#"]}</td>
+<td class="money">${subPct?string["0.##"]}</td>
 </tr>
 </#if>
 <#assign subTotal = 0>
@@ -51,8 +51,8 @@ padding: 5px;
 <td class="money">${fund.shares}</td>
 <td>${fund.fundNameOnly}</td>
 <td>${fund.ticker}</td>
-<td class="money">${fund.marketValue}</td>
-<td class="money">${fund.percentOfTotal}</td>
+<td class="money">${fund.marketValue?string.currency}</td>
+<td class="money">${fund.percentOfTotal?string["0.##"]}</td>
 </tr>
 
 </#list>
@@ -61,16 +61,16 @@ padding: 5px;
 <td></td>
 <td class="money"><strong>SUB-TOTAL</strong></td>
 <td></td>
-<td class="money">${subTotal}</td>
+<td class="money">${subTotal?string.currency}</td>
 <#assign subPct = (subTotal / grandTotal) * 100>
-<td class="money">${subPct?string["0.#"]}</td>
+<td class="money">${subPct?string["0.##"]}</td>
 </tr>
 <!-- grand total -->
 <tr>
 <td></td>
 <td class="money"><strong>TOTAL</strong></td>
 <td></td>
-<td class="money">${grandTotalPos}</td>
+<td class="money">${grandTotalPos?string.currency}</td>
 <td></td>
 </tr>
 
