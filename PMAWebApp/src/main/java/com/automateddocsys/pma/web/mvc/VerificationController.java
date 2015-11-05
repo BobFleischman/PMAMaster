@@ -141,7 +141,9 @@ public class VerificationController extends AbstractBaseController {
 
 	private void loadMapForQuestions(Model pModel, AnswerSet answerSet) {
 		pModel.addAttribute("needAnswers", 1);
-		pModel.addAttribute("questions", clientManager.getQuestionsAsMap());
+		SortedMap<String, String> m = clientManager.getQuestionsAsMap();
+		m.put("-1", "-- Please choose a question from the list below --");
+		pModel.addAttribute("questions", m);
 		pModel.addAttribute("answers",answerSet);
 	}
 

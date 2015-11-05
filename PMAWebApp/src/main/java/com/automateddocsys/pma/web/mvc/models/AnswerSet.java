@@ -4,11 +4,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AnswerSet {
 
-	private Long question1 = (long) 0;
+	private Long question1 = (long) -1;
 	private String answer1 = "";
-	private Long question2 = (long) 0;
+	private Long question2 = (long) -1;
 	private String answer2 = "";
-	private Long question3 = (long) 0;
+	private Long question3 = (long) -1;
 	private String answer3 = "";
 	public Long getQuestion1() {
 		return question1;
