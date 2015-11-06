@@ -18,7 +18,7 @@ tr.even {
   background-color: white;
 }
 tr.odd {
-  background-color: #efefef;
+  background-color: #E6E9ED;
 }
 table {
     border-collapse: collapse;

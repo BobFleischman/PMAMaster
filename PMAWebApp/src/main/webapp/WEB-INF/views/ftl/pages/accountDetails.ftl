@@ -76,3 +76,5 @@ padding: 5px;
 
 </table>
 </div>
+Send PMA a secure message about this account.<br/>
+Communicate with PMA. <a href=<@spring.url "/contact"/>>Click Here</a>

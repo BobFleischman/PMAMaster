@@ -74,14 +74,15 @@ public class PMAWebController extends AbstractBaseController {
 	public String startingPlace(Model pModel,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
-		updateModel(pModel);
-		String formattedDate = dateFormat.format(new Date());
-		pModel.addAttribute("serverTime", formattedDate);
-		pModel.addAttribute("principal",request.getUserPrincipal());
-		pModel.addAttribute("user",request.getRemoteUser());
-		pModel.addAttribute("client",clientManager.getWebClientByUsername(request.getUserPrincipal().getName()));
-		setServers(request,pModel);
-	    runMerger("pages/startPage.ftl", pModel, response, request);
-		return "template/pmabase";
+		return "redirect:/level2";		
+//		updateModel(pModel);
+//		String formattedDate = dateFormat.format(new Date());
+//		pModel.addAttribute("serverTime", formattedDate);
+//		pModel.addAttribute("principal",request.getUserPrincipal());
+//		pModel.addAttribute("user",request.getRemoteUser());
+//		pModel.addAttribute("client",clientManager.getWebClientByUsername(request.getUserPrincipal().getName()));
+//		setServers(request,pModel);
+//	    runMerger("pages/startPage.ftl", pModel, response, request);
+//		return "template/pmabase";
 	}
 }
