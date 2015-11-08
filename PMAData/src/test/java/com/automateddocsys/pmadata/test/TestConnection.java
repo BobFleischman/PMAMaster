@@ -13,11 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pmadata.bo.ClientName;
+import com.automateddocsys.pmadata.bo.Contact;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
 import com.automateddocsys.pmadata.repository.ClientNameRepository;
+import com.automateddocsys.pmadata.repository.ContactRepository;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
 import com.automateddocsys.pmadata.repository.UserRepository;
 import com.automateddocsys.pmadata.service.UserAccountService;
@@ -37,6 +39,9 @@ public class TestConnection {
 	
 	@Autowired
 	private ClientNameRepository clientNameRepository;
+	
+	@Autowired
+	private ContactRepository contactRepository;
 	
 	@Test
 	public void testPositionRepo() {
@@ -89,5 +94,13 @@ public class TestConnection {
 	public void testClientName() {
 		ClientName cName = clientNameRepository.findByClientNo(1640);
 		System.out.println(cName.getFullName());
+	}
+	
+	@Test
+	public void testContacts() {
+		List<Contact> lst = contactRepository.findAll();
+		for (Contact contact : lst) {
+			System.out.println(contact.toString());
+		}
 	}
 }

@@ -38,7 +38,6 @@ public class PMADataDataConfiguration {
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
-    	//System.out.println(DATABASE_URL);
     }
 /*	
  	private static Database DatabaseType = Database.MYSQL;
@@ -82,12 +81,6 @@ public class PMADataDataConfiguration {
         vendorAdapter.setDatabase(DATABASE_TYPE);
         vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setShowSql(true);
-//        Map<String, Object> m = vendorAdapter.getJpaPropertyMap();
-//        m.put("hibernate.format_sql", true);
-//        for (String key : m.keySet()) {
-//        	System.out.println(key);
-//        }
-
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan(PositionTotal.class.getPackage().getName());

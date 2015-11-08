@@ -75,6 +75,12 @@ padding: 5px;
 </tr>
 
 </table>
-</div>
+<form action='<@spring.url "/contact"/>' method="post">
 Send PMA a secure message about this account.<br/>
-Communicate with PMA. <a href=<@spring.url "/contact"/>>Click Here</a>
+Communicate with PMA. <input type="hidden" name="acctNo" value="${acctNo?c}" />
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><br/> 
+<input type="submit" value="Click Here" align="middle">
+</form>
+</div>
+<!-- <a href=<@spring.url "/contact"/>>Click Here</a> -->
+

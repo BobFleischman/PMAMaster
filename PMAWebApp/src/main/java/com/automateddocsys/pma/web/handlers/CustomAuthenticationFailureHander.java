@@ -32,13 +32,6 @@ public class CustomAuthenticationFailureHander implements AuthenticationFailureH
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
-		System.out.println("*************************************************");
-		System.out.println("*************************************************");
-		System.out.println("*************************************************");
-		System.out.println("*************************************************");
-		System.out.println("*************************************************");
-		System.out.println(exception.getClass());
-		System.out.println(exception.getMessage());
 		String msg = exception.getMessage();
 		msg = URLEncoder.encode(msg,"UTF-8");
 		redirectStrategy.sendRedirect(request, response, defaultFailureUrl + msg );

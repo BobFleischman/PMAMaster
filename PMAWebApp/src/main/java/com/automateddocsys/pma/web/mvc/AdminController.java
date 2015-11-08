@@ -30,7 +30,6 @@ public class AdminController extends AbstractBaseController {
 			HttpServletRequest request, 
 			HttpServletResponse response) {
 		updateModel(pModel);
-		System.out.println("About to clear questions for " + request.getUserPrincipal().getName());
 		clientManager.clearAnswers(request.getUserPrincipal().getName());
 		setServers(request,pModel);
 		pModel.addAttribute("error",null);

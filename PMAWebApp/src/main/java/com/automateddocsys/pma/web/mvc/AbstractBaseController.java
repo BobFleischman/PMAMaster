@@ -27,6 +27,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import com.automateddocsys.pma.web.service.ContactManager;
+import com.automateddocsys.pma.web.service.WebClientManager;
+import com.automateddocsys.pmadata.service.UserAccountService;
+
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -36,6 +40,16 @@ import freemarker.template.TemplateException;
  */
 @Controller
 public class AbstractBaseController {
+	
+	@Autowired
+	WebClientManager clientManager;
+
+	@Autowired
+	ContactManager contactManager;
+	
+	@Autowired
+	UserAccountService userAccountService;
+
     protected static final String _EXTRA_HEAD = "_extraHead_";
 
 	public static final String _BODY_TAG = "_body_";

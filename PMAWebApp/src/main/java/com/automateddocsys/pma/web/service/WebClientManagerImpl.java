@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,8 @@ import com.automateddocsys.pma.webdata.bo.WebClient;
 @Component
 public class WebClientManagerImpl implements WebClientManager {
 
+	private static final Logger log = LoggerFactory.getLogger(WebClientManagerImpl.class);
+	
 	@Autowired
 	WebClientRepository clientRepository;
 	
@@ -180,7 +184,7 @@ public class WebClientManagerImpl implements WebClientManager {
 			clientService.changePassword(pAccountId, pOldPassword, pNewPassword);
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return false;
 		}
 	}

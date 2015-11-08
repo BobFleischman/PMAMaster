@@ -81,12 +81,6 @@ public class PMAMasterReportDataConfiguration {
         vendorAdapter.setDatabase(DATABASE_TYPE);
         vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setShowSql(true);
-//        Map<String, Object> m = vendorAdapter.getJpaPropertyMap();
-//        m.put("hibernate.format_sql", true);
-//        for (String key : m.keySet()) {
-//        	System.out.println(key);
-//        }
-
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan(ReportRenamedFilesForWeb.class.getPackage().getName());

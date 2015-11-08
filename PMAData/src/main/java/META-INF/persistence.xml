@@ -6,5 +6,6 @@
 		<class>com.automateddocsys.pmadata.bo.Permission</class>
 		<class>com.automateddocsys.pmadata.bo.UpdateDate</class>
 		<class>com.automateddocsys.pmadata.bo.ClientName</class>
+		<class>com.automateddocsys.pmadata.bo.Contact</class>
 	</persistence-unit>
 </persistence>

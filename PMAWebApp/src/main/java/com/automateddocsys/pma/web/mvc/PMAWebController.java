@@ -49,10 +49,6 @@ public class PMAWebController extends AbstractBaseController {
 			HttpServletResponse response,		
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
-		System.out.println("context: " + request.getContextPath());
-		System.out.println("pathInfo: " + request.getPathInfo());
-		System.out.println("requestURL: " + request.getRequestURL());
-
 		Date date = new Date();
 		updateModel(pModel);
 		String formattedDate = dateFormat.format(date);
