@@ -14,6 +14,8 @@ public interface UserAccountService {
 	List<AccountTotal> getTotalForUserAccount(Integer pClientNo);
 
 	boolean hasRightsToThisAccount(Integer integer, Integer pAcctNumber);
+	
+	boolean hasMoreThanOneAccount(Integer pClientNo);
 
 	List<AccountTotal> getAccountDetails(Integer pAcctNumber);
 	

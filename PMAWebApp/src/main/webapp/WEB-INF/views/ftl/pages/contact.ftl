@@ -11,7 +11,7 @@ padding: 5px;
 </style>
 <div class="post" id="post-37">
 <ul class="children">
-<li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Information</a></li>
+<li class="page_item page-item-159"><a href=<@spring.url "/reports/details/${acctNo?c}"/>>Account Details</a></li>
 </ul>
 <table width="604" border="0" cellspacing="0" cellpadding="0">
 	<tr>

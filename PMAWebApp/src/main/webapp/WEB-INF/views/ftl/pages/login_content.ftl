@@ -61,7 +61,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan='2'>
+                    <td colspan='2' style="text-align: right;">
                         <input name="submit" type="submit" value="submit" />
                     </td>
                 </tr>
