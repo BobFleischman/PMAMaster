@@ -29,8 +29,10 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.automateddocsys.pma.web.service.WebClientManager;
 import com.automateddocsys.pma.webdata.bo.WebClient;
+import com.automateddocsys.pmadata.bo.Permission;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.ReportRenamedFilesForWeb;
+import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.service.ReportsService;
 import com.automateddocsys.pmadata.service.UserAccountService;
@@ -47,7 +49,7 @@ public class ReportsControllers extends AbstractBaseController {
 
 	@Autowired
 	UserAccountService userAccountService;
-	
+
 	@Autowired
 	ReportsService reportService;
 
@@ -59,15 +61,20 @@ public class ReportsControllers extends AbstractBaseController {
 		pModel.addAttribute("principal", request.getUserPrincipal());
 		pModel.addAttribute("user", request.getRemoteUser());
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
-		pModel.addAttribute("client", client);
-		pModel.addAttribute("updateDate", userAccountService.getUpdateDate());
-		List<AccountTotal> totals = userAccountService.getTotalForUserAccount(new Integer(client.getClientNumber()));
-		pModel.addAttribute("totals", totals);
-		BigDecimal grandTotal = calculateGrandTotal(totals);
-		pModel.addAttribute("grandTotal", grandTotal);
-		setServers(request, pModel);
-		runMerger("pages/accountList.ftl", pModel, response, request);
-		return "template/pmabase";
+		if (userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber()))) {
+			pModel.addAttribute("client", client);
+			pModel.addAttribute("updateDate", userAccountService.getUpdateDate());
+			List<AccountTotal> totals = userAccountService
+					.getTotalForUserAccount(new Integer(client.getClientNumber()));
+			pModel.addAttribute("totals", totals);
+			BigDecimal grandTotal = calculateGrandTotal(totals);
+			pModel.addAttribute("grandTotal", grandTotal);
+			setServers(request, pModel);
+			runMerger("pages/accountList.ftl", pModel, response, request);
+			return "template/pmabase";
+		} else {
+			return "redirect:/reports/details/" + client.getClientNumber();
+		}
 	}
 
 	private BigDecimal calculateGrandTotal(List<AccountTotal> pFunds) {
@@ -107,18 +114,18 @@ public class ReportsControllers extends AbstractBaseController {
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {
+			pModel.addAttribute("hasMoreThanOne", userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
 			StringBuffer sb = new StringBuffer();
 			sb.append(addScriptLibrary("//code.jquery.com/jquery-1.11.1.min.js"));
 			sb.append("\n");
 			sb.append(addScriptLibrary("//code.jquery.com/ui/1.11.4/jquery-ui.js"));
-			sb.append("\n");			
-			sb.append(addScriptLibrary("/PMAClientData/resources/js/pma_reports.js"));
-			sb.append("\n");			
+			sb.append("\n");
+			sb.append(addScriptLibrary("/secure/resources/js/pma_reports.js"));
+			sb.append("\n");
 			sb.append(addStyleLibrary("//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"));
-			
-			pModel.addAttribute(_EXTRA_HEAD,sb.toString());
 
-			
+			pModel.addAttribute(_EXTRA_HEAD, sb.toString());
+
 			pModel.addAttribute("updateDate", userAccountService.getUpdateDate());
 			List<AccountTotal> summary = userAccountService.getAccountDetails(pAcctNumber);
 			for (AccountTotal accountTotal : summary) {
@@ -175,8 +182,8 @@ public class ReportsControllers extends AbstractBaseController {
 				beanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
 
 				// only map 5 of the 10 fields
-				String[] header = { "Fund Type","Fund Name", "Ticker", "Shares", "Market Value" };
-				String[] field = { "ObjectName","FundNameOnly", "ticker", "Shares", "MarketValue" };
+				String[] header = { "Fund Type", "Fund Name", "Ticker", "Shares", "Market Value" };
+				String[] field = { "ObjectName", "FundNameOnly", "ticker", "Shares", "MarketValue" };
 
 				// assign a default value for married (if null), and write
 				// numberOfKids as an empty column if null
@@ -187,7 +194,7 @@ public class ReportsControllers extends AbstractBaseController {
 				beanWriter.writeHeader(header);
 				List<PositionTotal> positions = userAccountService.getPositionTotals(pAcctNumber);
 				for (PositionTotal positionTotal : positions) {
-					//beanWriter.write(positionTotal, header, processors);
+					// beanWriter.write(positionTotal, header, processors);
 					beanWriter.write(positionTotal, field);
 				}
 
@@ -223,8 +230,8 @@ public class ReportsControllers extends AbstractBaseController {
 	}
 
 	@RequestMapping(value = { "/PDF/{pAcctNumber}" })
-	public String showPDF(@PathVariable(value = "pAcctNumber") Integer pAcctNumber, Model pModel, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String showPDF(@PathVariable(value = "pAcctNumber") Integer pAcctNumber, Model pModel,
+			HttpServletRequest request, HttpServletResponse response) {
 		updateModel(pModel);
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);
@@ -233,8 +240,9 @@ public class ReportsControllers extends AbstractBaseController {
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
 		pModel.addAttribute("client", client);
 		pModel.addAttribute("acctNo", pAcctNumber);
-		pModel.addAttribute("accountName",userAccountService.getClientName(pAcctNumber));
-		boolean hasRightsToThisAccount = userAccountService.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+		pModel.addAttribute("accountName", userAccountService.getClientName(pAcctNumber));
+		boolean hasRightsToThisAccount = userAccountService
+				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
 		if (!hasRightsToThisAccount) {
 			throw new RuntimeException("You do not have permission to view this account");
 		}
@@ -250,14 +258,14 @@ public class ReportsControllers extends AbstractBaseController {
 				quarterlyReports.add(rrfw);
 			} else if ("A".equalsIgnoreCase(rrfw.getReportPeriod())) {
 				annualReports.add(rrfw);
-			}  
+			}
 		}
 		pModel.addAttribute("months", monthlyReports);
 		pModel.addAttribute("quarters", quarterlyReports);
 		pModel.addAttribute("annuals", annualReports);
+		pModel.addAttribute("hasMoreThanOne", userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
 		runMerger("pages/reportsAvailable.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
 
-	
 }

@@ -11,7 +11,7 @@ padding: 5px;
 </style>
 <div class="post" id="post-37">
 <ul class="children">
-<li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Information</a></li>
+<#if hasMoreThanOne><li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Summary</a></li></#if>
 <li class="page_item page-item-159"><a href=<@spring.url "/reports/PDF/${acctNo?c}"/>>Reports</a></li>
 <li class="page_item page-item-159"><a href="export/${acctNo?c}">Exports</a></li>
 </ul>

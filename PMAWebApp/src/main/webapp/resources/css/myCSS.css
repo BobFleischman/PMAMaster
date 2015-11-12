@@ -73,8 +73,12 @@ li a .topMenu {
 }
 
 label.pc {
-font-weight: bold;
-display: block;
-width: 150px;
-float: left;
+	font-weight: bold;
+	display: block;
+	width: 150px;
+	float: left;
+}
+
+h1, h2, h3 {
+	line-height: 1em;
 }

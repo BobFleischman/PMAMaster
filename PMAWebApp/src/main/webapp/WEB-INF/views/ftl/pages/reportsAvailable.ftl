@@ -35,7 +35,7 @@ table {
 th {
     height: 50px;
     text-align: left;
-    background-color: green;
+    background-color: lightgray;
     color: white;
     padding-left: 10px;
 }
@@ -47,8 +47,8 @@ td {
 </style>
 <div class="post" id="post-37">
 <ul class="children">
-<li class="page_item page-item-159"><a href="<@spring.url "/reports/list"/>">Account Information</a></li>
-<li class="page_item page-item-159"><a href="<@spring.url "/reports/details/${acctNo?c}"/>">Account Summary</a></li>
+<#if hasMoreThanOne><li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Summary</a></li></#if>
+<li class="page_item page-item-159"><a href="<@spring.url "/reports/details/${acctNo?c}"/>">Account Details</a></li>
 </ul>
 <h2>Reports available for ${accountName}</h2>
 <div id="tabs">

@@ -146,4 +146,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 		}
 	}
 
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public boolean hasMoreThanOneAccount(Integer pClientNo) {
+		UserAccount ua = userRepository.findOne(pClientNo);
+		List<Permission> permissions = ua.getPermissions();
+		return false;
+		//return permissions.size() > 1;
+	}
+
 }
