@@ -13,12 +13,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pmadata.bo.ClientName;
+import com.automateddocsys.pmadata.bo.Message;
 import com.automateddocsys.pmadata.bo.Permission;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.UpdateDate;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.repository.ClientNameRepository;
+import com.automateddocsys.pmadata.repository.MessageRepository;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
 import com.automateddocsys.pmadata.repository.UpdateDateRepository;
 import com.automateddocsys.pmadata.repository.UserRepository;
@@ -40,6 +42,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Autowired
 	ClientNameRepository clientNameRepository;
+	
+	@Autowired
+	MessageRepository messageRepository;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -151,8 +156,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public boolean hasMoreThanOneAccount(Integer pClientNo) {
 		UserAccount ua = userRepository.findOne(pClientNo);
 		List<Permission> permissions = ua.getPermissions();
-		return false;
-		//return permissions.size() > 1;
+		return permissions.size() > 1;
+	}
+
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public String getUpfrontMessage() {
+		List<Message> lst = messageRepository.findAll();
+		if ((lst.size() == 0) || (lst.get(0) == null) || lst.get(0).getMessage().trim().length() == 0) {
+			return null;
+		} else {
+			return lst.get(0).getMessage();
+		}
 	}
 
 }

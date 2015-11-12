@@ -3,6 +3,7 @@ package com.automateddocsys.pmadata.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.or.jms.MessageRenderer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.automateddocsys.pmadata.bo.ClientName;
 import com.automateddocsys.pmadata.bo.Contact;
+import com.automateddocsys.pmadata.bo.Message;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.config.PMADataDataConfiguration;
 import com.automateddocsys.pmadata.repository.ClientNameRepository;
 import com.automateddocsys.pmadata.repository.ContactRepository;
+import com.automateddocsys.pmadata.repository.MessageRepository;
 import com.automateddocsys.pmadata.repository.PositionTotalRepository;
 import com.automateddocsys.pmadata.repository.UserRepository;
 import com.automateddocsys.pmadata.service.UserAccountService;
@@ -42,6 +45,9 @@ public class TestConnection {
 	
 	@Autowired
 	private ContactRepository contactRepository;
+	
+	@Autowired
+	private MessageRepository messageRepository;
 	
 	@Test
 	public void testPositionRepo() {
@@ -101,6 +107,16 @@ public class TestConnection {
 		List<Contact> lst = contactRepository.findAll();
 		for (Contact contact : lst) {
 			System.out.println(contact.toString());
+		}
+	}
+	
+	@Test
+	public void testMessages() {
+		List<Message> lst = messageRepository.findAll();
+		if (lst.size() > 0) {
+			System.out.println("Got a message: " + lst.get(0).getMessage());
+		} else {
+			System.out.println("Nothing to show.");
 		}
 	}
 }

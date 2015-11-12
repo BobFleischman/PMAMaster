@@ -26,5 +26,13 @@ public interface UserAccountService {
 	void setPercentOfTotal(List<PositionTotal> positions, BigDecimal grandTotalPos);
 	
 	String getClientName(int pClientNo);
+	
+	/**
+	 * This is used to show a message on the login page
+	 * if there is nothing in the table or the message is null it returns null
+	 * else the String contains the message;
+	 * @return
+	 */
+	String getUpfrontMessage();
 
 }

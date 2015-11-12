@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.automateddocsys.pma.web.service.WebClientManager;
+import com.automateddocsys.pmadata.service.UserAccountService;
 
 
 
@@ -35,6 +36,9 @@ public class PMAWebController extends AbstractBaseController {
 	
 	@Autowired
 	private WebClientManager clientManager;
+	
+	@Autowired
+	UserAccountService accountService;
 
 	private static final Logger logger = LoggerFactory.getLogger(PMAWebController.class);
 
@@ -54,6 +58,10 @@ public class PMAWebController extends AbstractBaseController {
 		String formattedDate = dateFormat.format(date);
 		pModel.addAttribute("serverTime", formattedDate);
 		setServers(request,pModel);
+		String specialMessage = userAccountService.getUpfrontMessage();
+		if (specialMessage != null) {
+			pModel.addAttribute("msg", specialMessage);
+		}
 		if (error != null) {
 			pModel.addAttribute("error", "Invalid: " + error); //  username and password!");
 		}
