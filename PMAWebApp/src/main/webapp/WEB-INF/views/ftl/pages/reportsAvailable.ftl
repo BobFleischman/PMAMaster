@@ -65,7 +65,7 @@ td {
    <th style="width:20%;">Link</th>
 </tr>
 <#list months as report>
-<tr class="${zebra(report?index)}">
+<tr class="${zebra(report?item_index)}">
    <td>${report.getReportDate()}</td>
    <td>${report.getReportTypeName()}</td>
    <td><a href="<@spring.url "/download-document/${acctNo?c}/${report.getReportId()?c}"/>" target="_blank">PDF File</a></td>
