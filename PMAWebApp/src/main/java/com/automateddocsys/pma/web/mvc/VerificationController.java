@@ -3,10 +3,10 @@ package com.automateddocsys.pma.web.mvc;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.SortedMap;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,6 +34,10 @@ import com.automateddocsys.pma.webdata.bo.WebClient;
 @Controller
 @RequestMapping("/level2")
 public class VerificationController extends AbstractBaseController {
+	private static final String CLEAR_COOKIE = "clearCookie";
+
+	public static final String PMAVERIFICATION = "pmaverification";
+
 	@Autowired
 	WebClientManager clientManager;
 
@@ -54,6 +59,36 @@ public class VerificationController extends AbstractBaseController {
 //		}
 //		return view;
 //	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String showVerificationCodeForm(Model pModel,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@CookieValue(value=PMAVERIFICATION,required=false) String pCookieValue) {
+		
+		String remoteUser = request.getRemoteUser();
+		pModel.addAttribute("user",request.getRemoteUser());
+		/*
+		 * If we find the cookie skip the questions
+		 */
+		if (pCookieValue != null) {
+			if (pCookieValue.equals(remoteUser)) {
+				grantAuthority();
+				return "redirect:/reports/list";
+			}
+		}
+		String formattedDate = dateFormat.format(new Date());
+		pModel.addAttribute("serverTime", formattedDate);
+		pModel.addAttribute("principal",request.getUserPrincipal());
+		pModel.addAttribute("user",request.getRemoteUser());
+		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
+		pModel.addAttribute("client",client);
+		if (client.getAnswers().size() == 0) {
+			return askVerificationAnswers(request, response, pModel, new AnswerSet());
+		} else {
+			return askVerificationQuestion(request, response, pModel);
+		}
+	}
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String verifyCode(AnswerSet answerSet, Model pModel,
@@ -84,6 +119,7 @@ public class VerificationController extends AbstractBaseController {
 			return "redirect:/reports/list";
 		} else {
 			pModel.addAttribute("error", "Your answer did not match!");
+			pModel.addAttribute(CLEAR_COOKIE,true);
 			return askVerificationQuestion(request,response,pModel);
 		}
 	}
@@ -93,7 +129,13 @@ public class VerificationController extends AbstractBaseController {
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
 		updateModel(pModel);
 		setServers(request,pModel);
-		loadtVerificationQuestion(pModel,client);
+		loadVerificationQuestion(pModel,client);
+		if (pModel.containsAttribute(CLEAR_COOKIE)) {
+			System.out.println("removing cookie!");
+			Cookie deleteCookie = new Cookie(PMAVERIFICATION, "invalid");
+			deleteCookie.setMaxAge(0);
+			response.addCookie(deleteCookie);
+		}
 	    runMerger("pages/verification.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
@@ -106,24 +148,7 @@ public class VerificationController extends AbstractBaseController {
 		return "template/pmabase";
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String showVerificationCodeForm(Model pModel,
-			HttpServletRequest request, 
-			HttpServletResponse response) {
-		String formattedDate = dateFormat.format(new Date());
-		pModel.addAttribute("serverTime", formattedDate);
-		pModel.addAttribute("principal",request.getUserPrincipal());
-		pModel.addAttribute("user",request.getRemoteUser());
-		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
-		pModel.addAttribute("client",client);
-		if (client.getAnswers().size() == 0) {
-			return askVerificationAnswers(request, response, pModel, new AnswerSet());
-		} else {
-			return askVerificationQuestion(request, response, pModel);
-		}
-	}
-
-	private void loadtVerificationQuestion(Model pModel, WebClient client) {
+	private void loadVerificationQuestion(Model pModel, WebClient client) {
 		int which = random.nextInt(2);
 		int ct = 0;
 		for (ClientAnswer answer : client.getAnswers()) {

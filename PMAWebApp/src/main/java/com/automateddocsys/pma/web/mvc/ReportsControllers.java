@@ -1,4 +1,4 @@
-/**
+/*
  * 
  */
 package com.automateddocsys.pma.web.mvc;
@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.supercsv.cellprocessor.ConvertNullTo;
@@ -29,10 +31,8 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.automateddocsys.pma.web.service.WebClientManager;
 import com.automateddocsys.pma.webdata.bo.WebClient;
-import com.automateddocsys.pmadata.bo.Permission;
 import com.automateddocsys.pmadata.bo.PositionTotal;
 import com.automateddocsys.pmadata.bo.ReportRenamedFilesForWeb;
-import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.bo.projections.AccountTotal;
 import com.automateddocsys.pmadata.service.ReportsService;
 import com.automateddocsys.pmadata.service.UserAccountService;
@@ -54,8 +54,23 @@ public class ReportsControllers extends AbstractBaseController {
 	ReportsService reportService;
 
 	@RequestMapping(value = { "/list" })
-	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response) {
+	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response, 
+			@CookieValue(value=VerificationController.PMAVERIFICATION,required=false) String pCookieValue) {
+		/**
+		 * If we made it here then we have can assume they have passed all test and we can set the cookie on the response
+		 */
 		updateModel(pModel);
+		// see if there is already a cookie here, if not create one
+		if (pCookieValue == null) {
+			String remoteUser = request.getRemoteUser();
+			Cookie newCookie = new Cookie(VerificationController.PMAVERIFICATION, remoteUser);
+			newCookie.setPath("/");
+			//newCookie.setDomain("secure.prudentmanagement.com");
+			newCookie.setMaxAge(10000);			
+			response.addCookie(newCookie);
+		} else {
+			System.out.println("-------------------- COOKIE FOUND!!!");
+		}
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);
 		pModel.addAttribute("principal", request.getUserPrincipal());
