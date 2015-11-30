@@ -24,6 +24,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.automateddocsys.pma.web.mvc.models.AnswerSet;
 import com.automateddocsys.pma.web.mvc.models.VerificationItem;
@@ -113,9 +114,13 @@ public class VerificationController extends AbstractBaseController {
 	@RequestMapping(value="/confirm",method = RequestMethod.POST)
 	public String verifyCode(VerificationItem verification, Model pModel,
 			HttpServletRequest request, 
-			HttpServletResponse response) {
+			HttpServletResponse response,
+			RedirectAttributes redirectAttributes) {
 		if (clientManager.didSupplyCorrectAnswer(request.getUserPrincipal().getName(),verification)) {
 			grantAuthority();
+			if (!verification.getRememberMe()) {
+				request.getSession().setAttribute("noCookier", true);
+			}
 			return "redirect:/reports/list";
 		} else {
 			pModel.addAttribute("error", "Your answer did not match!");
@@ -131,7 +136,6 @@ public class VerificationController extends AbstractBaseController {
 		setServers(request,pModel);
 		loadVerificationQuestion(pModel,client);
 		if (pModel.containsAttribute(CLEAR_COOKIE)) {
-			System.out.println("removing cookie!");
 			Cookie deleteCookie = new Cookie(PMAVERIFICATION, "invalid");
 			deleteCookie.setMaxAge(0);
 			response.addCookie(deleteCookie);

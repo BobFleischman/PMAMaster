@@ -95,12 +95,6 @@ public class AbstractBaseController {
 	    if (!templateName.endsWith(".ftl")) {
 	        templateName += ".ftl";
 	    }
-//        Collection<String> headers = response.getHeaderNames();
-//        for (String string : headers) {
-//			if ("Set-Cookie".equalsIgnoreCase(string)) {
-//				System.out.println("   " + response.getHeader("Set-Cookie"));
-//			}
-//		}
 
         ServletContext servletContext = webApplicationContext.getServletContext();
 	       try {
@@ -111,13 +105,6 @@ public class AbstractBaseController {
 	            dataModel.put(SPRING_MACRO_REQUEST_CONTEXT_ATTRIBUTE, new RequestContext(request, response, servletContext, pModel.asMap()));
 	            dataModel.putAll(pModel.asMap());
 	            Writer out = new StringWriter();
-//	            headers = response.getHeaderNames();
-//	            for (String string : headers) {
-//					if ("Set-Cookie".equalsIgnoreCase(string)) {
-//						System.out.println("   " + response.getHeader("Set-Cookie"));
-//					}
-//
-//				}
 	            t.process(dataModel, out );
 	            out.close();
 	            if (logger.isDebugEnabled()) {

@@ -15,7 +15,7 @@ import com.automateddocsys.pmadata.repository.ReportsRepository;
 @Service
 public class ReportServiceImpl implements ReportsService {
 	
-	private static final Sort reportsSort = new Sort(Direction.ASC,
+	private static final Sort reportsSort = new Sort(Direction.DESC,
 			ReportRenamedFilesForWeb.REPORT_YEAR,
 			ReportRenamedFilesForWeb.REPORT_MONTH,
 			ReportRenamedFilesForWeb.REPORT_PERIOD,

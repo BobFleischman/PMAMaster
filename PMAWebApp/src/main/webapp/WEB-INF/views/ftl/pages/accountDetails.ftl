@@ -13,7 +13,7 @@ padding: 5px;
 <ul class="children">
 <#if hasMoreThanOne><li class="page_item page-item-159"><a href=<@spring.url "/reports/list"/>>Account Summary</a></li></#if>
 <li class="page_item page-item-159"><a href=<@spring.url "/reports/PDF/${acctNo?c}"/>>Reports</a></li>
-<li class="page_item page-item-159"><a href="export/${acctNo?c}">Exports</a></li>
+<li class="page_item page-item-159"><a href="export/${acctNo?c}">Export</a></li>
 </ul>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>

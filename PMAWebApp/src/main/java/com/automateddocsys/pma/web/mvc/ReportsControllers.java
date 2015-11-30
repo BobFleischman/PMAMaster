@@ -54,22 +54,26 @@ public class ReportsControllers extends AbstractBaseController {
 	ReportsService reportService;
 
 	@RequestMapping(value = { "/list" })
-	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response, 
-			@CookieValue(value=VerificationController.PMAVERIFICATION,required=false) String pCookieValue) {
+	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response,
+			@CookieValue(value = VerificationController.PMAVERIFICATION, required = false) String pCookieValue) {
 		/**
-		 * If we made it here then we have can assume they have passed all test and we can set the cookie on the response
+		 * If we made it here then we have can assume they have passed all test
+		 * and we can set the cookie on the response
 		 */
 		updateModel(pModel);
 		// see if there is already a cookie here, if not create one
 		if (pCookieValue == null) {
-			String remoteUser = request.getRemoteUser();
-			Cookie newCookie = new Cookie(VerificationController.PMAVERIFICATION, remoteUser);
-			newCookie.setPath("/");
-			//newCookie.setDomain("secure.prudentmanagement.com");
-			newCookie.setMaxAge(10000);			
-			response.addCookie(newCookie);
-		} else {
-			System.out.println("-------------------- COOKIE FOUND!!!");
+			// see if there is a noCookie attribute on this session
+			Boolean noCookie = (Boolean) request.getSession().getAttribute("noCookie");
+			if (noCookie == null) {
+				// nothing on the session so set the cookie
+				String remoteUser = request.getRemoteUser();
+				Cookie newCookie = new Cookie(VerificationController.PMAVERIFICATION, remoteUser);
+				newCookie.setPath("/");
+				// newCookie.setDomain("secure.prudentmanagement.com");
+				newCookie.setMaxAge(10000);
+				response.addCookie(newCookie);
+			}
 		}
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);
@@ -129,7 +133,8 @@ public class ReportsControllers extends AbstractBaseController {
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {
-			pModel.addAttribute("hasMoreThanOne", userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
+			pModel.addAttribute("hasMoreThanOne",
+					userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
 			StringBuffer sb = new StringBuffer();
 			sb.append(addScriptLibrary("//code.jquery.com/jquery-1.11.1.min.js"));
 			sb.append("\n");
@@ -278,7 +283,8 @@ public class ReportsControllers extends AbstractBaseController {
 		pModel.addAttribute("months", monthlyReports);
 		pModel.addAttribute("quarters", quarterlyReports);
 		pModel.addAttribute("annuals", annualReports);
-		pModel.addAttribute("hasMoreThanOne", userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
+		pModel.addAttribute("hasMoreThanOne",
+				userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
 		runMerger("pages/reportsAvailable.ftl", pModel, response, request);
 		return "template/pmabase";
 	}

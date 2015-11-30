@@ -180,7 +180,7 @@ public class ReportRenamedFilesForWeb implements Serializable {
 	
 	public String getReportTypeName() {
 		if ("TRN".equals(reportType)) {
-			return "Transactional";
+			return "Transactions";
 		} else if ("PER".equals(reportType)) {
 			return "Performance";
 		} else if ("MVS".equals(reportType)) {

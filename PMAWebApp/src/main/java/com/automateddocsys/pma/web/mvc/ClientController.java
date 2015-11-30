@@ -69,10 +69,6 @@ public class ClientController extends AbstractBaseController {
 			HttpServletRequest request, 
 			HttpServletResponse response,		
 			@PathVariable String username) {
-//		Enumeration<String> days = request.getAttributeNames();
-//	     while (days.hasMoreElements()){
-//	         System.out.println(days.nextElement()); 
-//	      }
 	     if (errors.hasErrors()) {
 			setServers(request,pModel);
 			pModel.addAttribute("WebClient", client);

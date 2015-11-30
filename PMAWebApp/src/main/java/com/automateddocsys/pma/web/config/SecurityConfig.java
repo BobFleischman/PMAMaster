@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.usernameParameter("username").passwordParameter("password")
 			.and()
 			.logout().logoutSuccessUrl("/login?logout")
-			.and()
-			.csrf()
+//			.and()
+//			.csrf()
 //				.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
 //
 //					private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");

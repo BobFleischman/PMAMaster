@@ -64,7 +64,9 @@ $("#verify").validate({
 <form method="POST" id="verify" action="${serverDir}level2/confirm" >
 <h3>${verification.question}</h3> 
 <@spring.formHiddenInput 'verification.questionNumber', '' /> 
-<@spring.formInput 'verification.answer', 'class="answer" required' /> 
+<@spring.formInput 'verification.answer', 'class="answer" required' /></br> 
+<label for="rememberMe">Do you wish to be remembered on this computer?</label>
+<@spring.formCheckbox 'verification.rememberMe', 'class="squaredFour"' />
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><br/>      
 <input type="submit" value="Submit"/>
 </form> 

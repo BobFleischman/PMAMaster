@@ -4,6 +4,14 @@ public class VerificationItem {
 		private Long questionNumber;
 		private String question;
 		private String answer;
+		private Boolean rememberMe = true;
+		
+		public Boolean getRememberMe() {
+			return rememberMe;
+		}
+		public void setRememberMe(Boolean rememberMe) {
+			this.rememberMe = rememberMe;
+		}
 		public Long getQuestionNumber() {
 			return questionNumber;
 		}
