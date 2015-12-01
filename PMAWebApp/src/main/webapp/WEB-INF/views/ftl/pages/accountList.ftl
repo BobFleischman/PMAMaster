@@ -13,7 +13,8 @@ padding: 5px;
 <ul class="children">
 <li class="page_item page-item-166"><a href=<@spring.url "/login?logout"/>>Logout</a></li>
 </ul>
-<h1>${client.getMasterClientName()} Accounts</h1>
+<!-- ${client.getMasterClientName()} -->
+<h1>Accounts</h1>
 <p>This information is based upon closing balances and prices and includes estimated proceeeds of pending transactions.</p>
 <p>${updateDate}</p>
 <p>Click on any account for more detail.</p>

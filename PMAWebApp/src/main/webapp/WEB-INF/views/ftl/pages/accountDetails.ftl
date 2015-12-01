@@ -81,6 +81,19 @@ Communicate with PMA. <input type="hidden" name="acctNo" value="${acctNo?c}" />
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><br/> 
 <input type="submit" value="Click Here" align="middle">
 </form>
+
+<p style="padding-top:15px; border-top:1px solid red;margin-top:15px;">
+If you would like to change your security questions kindly <a id="clearQuestions" href="#">click here</a>
+</p>
 </div>
 <!-- <a href=<@spring.url "/contact"/>>Click Here</a> -->
+<script>
+$().ready(function() {
+	$("#clearQuestions").on("click",function(){
+		if (window.confirm("Are you sure you want to reset your security questions?")) {
+			window.location.href="${serverDir}/admin/clearQuestions";
+		} 
+	});
+});
+</script>
 
