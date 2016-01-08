@@ -26,11 +26,16 @@ public class Permission implements Serializable {
 	
 	@Column(name="ValidAccounts")
 	private Integer validAccount;
+	
+	@Column(name="Username")
+	@ManyToOne
+	@JoinColumn(name="Username", referencedColumnName="name")
+	private UserAccount userAccount;
 
 	//bi-directional many-to-one association to UserAccount
-	@ManyToOne
-	@JoinColumn(name="PortalAccounts", referencedColumnName="ClientNo")
-	private UserAccount userAccount;
+	//@ManyToOne
+	//@JoinColumn(name="PortalAccounts", referencedColumnName="ClientNo")
+	private String PortalAccounts;
 
 	public Permission() {
 	}
