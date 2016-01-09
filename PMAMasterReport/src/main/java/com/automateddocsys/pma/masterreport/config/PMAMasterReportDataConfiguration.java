@@ -31,13 +31,15 @@ public class PMAMasterReportDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
-	private static String DATABASE_URL_DEV = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=MasterFiles";
+	private static String DATABASE_URL_DEV = "jdbc:sqlserver://192.168.2.53\\sqlexpress;databaseName=MasterFiles";
 	private static String DATABASE_URL_PMA = "jdbc:sqlserver://PMAWEB;databaseName=MasterFiles";
 	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
 	private static String DATABASE_USER = "pmawebmaster";
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
-    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
+    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) || 
+    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME"))
+    			? DATABASE_URL_DEV : DATABASE_URL_PMA;
     }
 /*	
  	private static Database DatabaseType = Database.MYSQL;

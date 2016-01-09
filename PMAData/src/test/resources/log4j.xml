@@ -38,11 +38,13 @@
             <param name="LevelMax" value="FATAL"/>
        </filter>
     </appender>
- 
+       <logger name="org.hibernate.SQL">
+            <level value="warn" />
+      </logger>
     <!-- setup log4j's root logger -->
     <!-- levels are DEBUG, INFO, WARN, ERROR, FATAL, all  -->
     <root>
-        <level value="INFO" />
+        <level value="warn" />
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="STDERR"/>
         <appender-ref ref="ROLLING"/>

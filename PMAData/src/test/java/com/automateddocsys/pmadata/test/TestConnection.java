@@ -69,8 +69,7 @@ public class TestConnection {
 	@Transactional
 	public void testUserRepo() {
 		UserAccount ua = userRepository.findByUsername("fsnitzer");
-		System.out.println(ua);
-		
+		System.out.println(ua);		
 	}
 
 	private void showTotals(List<PositionTotal> lst) {

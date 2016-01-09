@@ -27,14 +27,24 @@ public class Permission implements Serializable {
 	@Column(name="ValidAccounts")
 	private Integer validAccount;
 	
-	@Column(name="Username")
-	@ManyToOne
+	@Column(name="Username",insertable=false, updatable= false)
+	private String username;
+	
+    @ManyToOne
+    @JoinColumn(name="Username",referencedColumnName="Username")
+//    @Column(name="Username")
+    private UserAccount userAccount;
+    //private String username;
+	
+/*
+ * 	@ManyToOne
 	@JoinColumn(name="Username", referencedColumnName="name")
 	private UserAccount userAccount;
 
 	//bi-directional many-to-one association to UserAccount
 	//@ManyToOne
 	//@JoinColumn(name="PortalAccounts", referencedColumnName="ClientNo")
+*/
 	private String PortalAccounts;
 
 	public Permission() {
@@ -48,14 +58,6 @@ public class Permission implements Serializable {
 		this.validAccount = validAccount;
 	}
 
-	public UserAccount getUserAccount() {
-		return this.userAccount;
-	}
-
-	public void setUserAccount(UserAccount userAccount) {
-		this.userAccount = userAccount;
-	}
-
 	public Long getRownum() {
 		return rownum;
 	}
@@ -67,10 +69,32 @@ public class Permission implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Permission [validAccount=");
+		builder.append("Permission [rownum=");
+		builder.append(rownum);
+		builder.append(", validAccount=");
 		builder.append(validAccount);
+//		builder.append(", username=");
+//		builder.append(username);
+		builder.append(", PortalAccounts=");
+		builder.append(PortalAccounts);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	public String getPortalAccounts() {
+		return PortalAccounts;
+	}
+
+	public void setPortalAccounts(String portalAccounts) {
+		PortalAccounts = portalAccounts;
 	}
 
 }

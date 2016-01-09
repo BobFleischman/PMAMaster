@@ -31,13 +31,15 @@ public class PMADataDataConfiguration {
 
 	private static Database DATABASE_TYPE = Database.SQL_SERVER;
 	private static String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";	                                         
-	private static String DATABASE_URL_DEV = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
+	//private static String DATABASE_URL_DEV = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=PMAWEB";
+	private static String DATABASE_URL_DEV = "jdbc:sqlserver://192.168.2.53\\SQLEXPRESS;databaseName=PMAWEB";
 	private static String DATABASE_URL_PMA = "jdbc:sqlserver://PMAWEB;databaseName=PMAWEB";
 	private static String DATABASE_PASSWORD = "pm@w3bm@st3r2015";
 	private static String DATABASE_USER = "pmawebmaster";
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
+    	DATABASE_URL = DATABASE_URL_DEV;
     }
 /*	
  	private static Database DatabaseType = Database.MYSQL;

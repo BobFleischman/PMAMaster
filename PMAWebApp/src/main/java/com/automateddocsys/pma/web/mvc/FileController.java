@@ -77,8 +77,8 @@ public class FileController extends AbstractBaseController {
 				inputStream.close();
 			}
 			response.getOutputStream().close();
-
 		}
+		return null;
 	}
 
 }

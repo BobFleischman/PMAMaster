@@ -1,7 +1,9 @@
 package com.automateddocsys.pmadata.bo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class UserAccount implements Serializable {
 	@Column(name="Password")
 	private String password;
 
-	@Column(name="Username")
+	@Column(name="Username",insertable=false, updatable= false)
 	private String username;
 
 	//bi-directional many-to-one association to Permission
@@ -73,14 +75,6 @@ public class UserAccount implements Serializable {
 		this.password = password;
 	}
 
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public List<Permission> getPermissions() {
 		return this.permissions;
 	}
@@ -107,6 +101,14 @@ public class UserAccount implements Serializable {
 
 	public void setClientNo(Integer clientNo) {
 		this.clientNo = clientNo;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	@Override
