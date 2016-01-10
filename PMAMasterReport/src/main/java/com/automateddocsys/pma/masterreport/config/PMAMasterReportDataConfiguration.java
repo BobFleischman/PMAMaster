@@ -37,8 +37,9 @@ public class PMAMasterReportDataConfiguration {
 	private static String DATABASE_USER = "pmawebmaster";
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
-    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) || 
-    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME"))
+    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			"ROOT".equalsIgnoreCase(System.getenv("USERNAME")) 
     			? DATABASE_URL_DEV : DATABASE_URL_PMA;
     }
 /*	

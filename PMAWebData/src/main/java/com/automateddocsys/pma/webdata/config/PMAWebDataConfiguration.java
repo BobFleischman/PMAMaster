@@ -38,7 +38,8 @@ public class PMAWebDataConfiguration {
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
-    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME")) 
+    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			"ROOT".equalsIgnoreCase(System.getenv("USERNAME")) 
     			? DATABASE_URL_DEV : DATABASE_URL_PMA;
     }
 

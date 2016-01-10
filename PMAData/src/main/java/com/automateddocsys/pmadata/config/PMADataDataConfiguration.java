@@ -38,8 +38,10 @@ public class PMADataDataConfiguration {
 	private static String DATABASE_USER = "pmawebmaster";
 	private static String DATABASE_URL = DATABASE_URL_PMA;
     static {
-    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ? DATABASE_URL_DEV : DATABASE_URL_PMA;
-    	DATABASE_URL = DATABASE_URL_DEV;
+    	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			"ROOT".equalsIgnoreCase(System.getenv("USERNAME")) 
+    			? DATABASE_URL_DEV : DATABASE_URL_PMA;
     }
 /*	
  	private static Database DatabaseType = Database.MYSQL;
