@@ -247,20 +247,21 @@ public class WebClient implements UserDetails, CredentialsContainer {
 		return builder.toString();
 	}
 
-	// public String getAccountsAsCSV() {
-	// List<String> accts = new ArrayList<String>();
-	// for (ClientAccount acct: getAccounts()) {
-	// accts.add(acct.getAccountNumber());
-	// }
-	// return StringUtils.join(accts,",");
-	// }
-	//
-	public void setAccountsAsCSV(String pList) {
-		List<String> items = new ArrayList<String>(Arrays.asList(pList.split("\\s*,\\s*")));
-		for (String string : items) {
-			System.out.println("ACCT: " + string);
+	public String getAccountsAsCSV() {
+		List<String> accts = new ArrayList<String>();
+		for (ClientAccount acct : getAccounts()) {
+			accts.add(acct.getAccountNumber());
 		}
+		return StringUtils.join(accts, ",");
 	}
+
+	// public void setAccountsAsCSV(String pList) {
+	// List<String> items = new
+	// ArrayList<String>(Arrays.asList(pList.split("\\s*,\\s*")));
+	// for (String string : items) {
+	// System.out.println("ACCT: " + string);
+	// }
+	// }
 
 	/*
 	 * public void addAccount(String acctNmbr) { ClientAccount acct = new
@@ -308,7 +309,7 @@ public class WebClient implements UserDetails, CredentialsContainer {
 			}
 		}
 		getAnswers().add(new ClientAnswer(pQuestion, pAnswer));
-		System.out.println(getAnswers().size());
+		// System.out.println(getAnswers().size());
 	}
 
 	public Set<ClientAnswer> getAnswers() {
@@ -353,7 +354,7 @@ public class WebClient implements UserDetails, CredentialsContainer {
 		}
 		return null;
 	}
-	
+
 	public void removeQuestion(long pQuestionId) {
 		ClientAnswer ca = getClientAnswerFor(pQuestionId);
 		getAnswers().remove(ca);

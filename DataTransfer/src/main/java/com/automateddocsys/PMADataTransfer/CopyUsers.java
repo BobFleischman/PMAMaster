@@ -51,8 +51,8 @@ public class CopyUsers {
 			client.setMasterClientNumber(userAccount.getClientNo().toString());
 			client.setMasterClientName(userAccount.getName());
 			client.setUsername(userAccount.getUsername());
-			//client.setPassword(userAccount.getPassword());
-			client.setPassword(userAccount.getUsername()+"1234");
+			client.setPassword(userAccount.getPassword());
+			//client.setPassword(userAccount.getUsername()+"1234");
 			if (client.getAuthorities().size() == 0) {
 				client.addAuthority("ROLE_USER");
 			}
