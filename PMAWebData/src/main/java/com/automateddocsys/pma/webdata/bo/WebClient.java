@@ -247,21 +247,21 @@ public class WebClient implements UserDetails, CredentialsContainer {
 		return builder.toString();
 	}
 
-	public String getAccountsAsCSV() {
-		List<String> accts = new ArrayList<String>();
-		for (ClientAccount acct : getAccounts()) {
-			accts.add(acct.getAccountNumber());
-		}
-		return StringUtils.join(accts, ",");
-	}
+//	public String getAccountsAsCSV() {
+//		List<String> accts = new ArrayList<String>();
+//		for (ClientAccount acct : getAccounts()) {
+//			accts.add(acct.getAccountNumber());
+//		}
+//		return StringUtils.join(accts, ",");
+//	}
 
-	// public void setAccountsAsCSV(String pList) {
-	// List<String> items = new
-	// ArrayList<String>(Arrays.asList(pList.split("\\s*,\\s*")));
-	// for (String string : items) {
-	// System.out.println("ACCT: " + string);
-	// }
-	// }
+	 public void setAccountsAsCSV(String pList) {
+	 List<String> items = new
+	 ArrayList<String>(Arrays.asList(pList.split("\\s*,\\s*")));
+	 for (String string : items) {
+	 System.out.println("ACCT: " + string);
+	 }
+	 }
 
 	/*
 	 * public void addAccount(String acctNmbr) { ClientAccount acct = new
