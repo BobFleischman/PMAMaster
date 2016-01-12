@@ -276,7 +276,7 @@ public class ReportsControllers extends AbstractBaseController {
 				monthlyReports.add(rrfw);
 			} else if ("Q".equalsIgnoreCase(rrfw.getReportPeriod())) {
 				quarterlyReports.add(rrfw);
-			} else if ("A".equalsIgnoreCase(rrfw.getReportPeriod())) {
+			} else if ("Y".equalsIgnoreCase(rrfw.getReportPeriod())) {
 				annualReports.add(rrfw);
 			}
 		}
