@@ -81,7 +81,7 @@ public class TestConnection {
 
 	@Test
 	public void testTotals() {
-		List<AccountTotal> lst = userAccountService.getTotalForUserAccount(2);
+		List<AccountTotal> lst = userAccountService.getTotalForUserAccount("psnitzer");
 		for (AccountTotal accountTotal : lst) {
 			System.out.println(accountTotal.toString());
 		}
@@ -97,7 +97,7 @@ public class TestConnection {
 	
 	@Test
 	public void testClientName() {
-		ClientName cName = clientNameRepository.findByClientNo(1640);
+		ClientName cName = clientNameRepository.findByClientNo(2);
 		System.out.println(cName.getFullName());
 	}
 	

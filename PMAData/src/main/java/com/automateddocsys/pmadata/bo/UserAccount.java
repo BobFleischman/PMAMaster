@@ -21,7 +21,7 @@ public class UserAccount implements Serializable {
 	@Column(name="ClientNo")
 	private Integer clientNo;
 
-	@Id
+	//@Id
 	@Column(nullable=false)
 	private Integer client_ID;
 
@@ -33,7 +33,8 @@ public class UserAccount implements Serializable {
 	@Column(name="Password")
 	private String password;
 
-	@Column(name="Username",insertable=false, updatable= false)
+	@Id
+	@Column(name="Username")
 	private String username;
 
 	//bi-directional many-to-one association to Permission
