@@ -59,6 +59,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	@Deprecated
 	public List<AccountTotal> getTotalForUserAccount(Integer pClientNo) {
 		UserAccount ua = userRepository.findOne(pClientNo);
 		List<AccountTotal> result = new ArrayList<AccountTotal>();
@@ -83,8 +84,46 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public List<AccountTotal> getTotalForUserAccount(String pUserName) {
+		UserAccount ua = userRepository.findByUsername(pUserName);
+		List<AccountTotal> result = new ArrayList<AccountTotal>();
+		List<Permission> permissions = ua.getPermissions();
+		for (Permission permission : permissions) {
+			List<PositionTotal> position = positionTotalRepository.findByClientNo(permission.getValidAccount());
+			if (position.size() > 0) {
+				AccountTotal at = new AccountTotal();
+				for (PositionTotal positionTotal : position) {
+					at.setClientNumber(positionTotal.getClientNo());
+					at.setAccountName(positionTotal.getName1());
+					at.addValue(positionTotal.getMarketValue());
+				}
+				result.add(at);
+			} else {
+				log.warn(String.format("No Positions for Account %s which is related to Client Name %s ",
+						permission.getValidAccount(), pUserName));
+			}
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	@Deprecated
 	public boolean hasRightsToThisAccount(Integer pClientNo, Integer pAcctNumber) {
 		UserAccount ua = userRepository.findOne(pClientNo);
+		List<Permission> permissions = ua.getPermissions();
+		for (Permission permission : permissions) {
+			if (permission.getValidAccount().equals(pAcctNumber)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public boolean hasRightsToThisAccount(String pUserName, Integer pAcctNumber) {
+		UserAccount ua = userRepository.findByUsername(pUserName);
 		List<Permission> permissions = ua.getPermissions();
 		for (Permission permission : permissions) {
 			if (permission.getValidAccount().equals(pAcctNumber)) {
@@ -153,6 +192,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	@Deprecated
+	/**
+	 * Invalid now that we no longer have a master client number
+	 */
 	public boolean hasMoreThanOneAccount(Integer pClientNo) {
 		UserAccount ua = userRepository.findOne(pClientNo);
 		List<Permission> permissions = ua.getPermissions();
@@ -161,12 +204,33 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	@Transactional(value = "transactionManagerPMA", readOnly = true)
+	public boolean hasMoreThanOneAccount(String pUserName) {
+		UserAccount ua = userRepository.findByUsername(pUserName);
+		List<Permission> permissions = ua.getPermissions();
+		return permissions.size() > 1;
+	}
+	
+	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
 	public String getUpfrontMessage() {
 		List<Message> lst = messageRepository.findAll();
 		if ((lst.size() == 0) || (lst.get(0) == null) || lst.get(0).getMessage().trim().length() == 0) {
 			return null;
 		} else {
 			return lst.get(0).getMessage();
+		}
+	}
+
+	@Override
+	public Integer getOnlyAccountForThisUser(String pUserName) {
+		UserAccount ua = userRepository.findByUsername(pUserName);
+		List<Permission> permissions = ua.getPermissions();
+		if (permissions.size() > 1) {
+			throw new RuntimeException("Tried to get only account for User that has more than one account for " + pUserName);
+		} else if (permissions.size() == 0) {
+			throw new RuntimeException(pUserName + " has no permissions to any accounts");
+		} else {
+			return permissions.get(0).getValidAccount();
 		}
 	}
 

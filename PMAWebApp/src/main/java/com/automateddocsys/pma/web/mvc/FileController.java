@@ -44,7 +44,7 @@ public class FileController extends AbstractBaseController {
 			HttpServletResponse response, Model pModel) throws IOException  {
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNumber);
 		if (!hasRightsToThisAccount) {
 			throw new RuntimeException("You do not have permission to view this account");
 		}

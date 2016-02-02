@@ -40,7 +40,7 @@ $("#verify").validate({
       alert('You must selection a question for Selection 2');
       return;
     }
-    if (q2 == -1) {
+    if (q3 == -1) {
       alert('You must selection a question for Selection 3');
       return;
     }

@@ -18,10 +18,10 @@ import java.util.List;
 public class UserAccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	@Column(name="ClientNo")
 	private Integer clientNo;
-	
+
+	@Id
 	@Column(nullable=false)
 	private Integer client_ID;
 

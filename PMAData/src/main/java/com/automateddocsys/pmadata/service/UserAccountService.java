@@ -11,10 +11,13 @@ public interface UserAccountService {
 
 	List<UserAccount> findAll();
 	
+	@Deprecated
 	List<AccountTotal> getTotalForUserAccount(Integer pClientNo);
 
+	@Deprecated
 	boolean hasRightsToThisAccount(Integer integer, Integer pAcctNumber);
 	
+	@Deprecated
 	boolean hasMoreThanOneAccount(Integer pClientNo);
 
 	List<AccountTotal> getAccountDetails(Integer pAcctNumber);
@@ -34,5 +37,19 @@ public interface UserAccountService {
 	 * @return
 	 */
 	String getUpfrontMessage();
+
+	boolean hasMoreThanOneAccount(String pUserName);
+
+	boolean hasRightsToThisAccount(String pUserName, Integer pAcctNumber);
+	
+	/**
+	 * This should only be called if the user only has one account
+	 * It will throw an error is called otherwise
+	 * @param pUserName
+	 * @return AccountNumber (ClientNo)
+	 */
+	Integer getOnlyAccountForThisUser(String pUserName);
+
+	List<AccountTotal> getTotalForUserAccount(String pUserName);
 
 }

@@ -34,7 +34,7 @@ public class ContactController extends AbstractBaseController {
 		 * throw an error
 		 */
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNo);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNo);
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {
@@ -54,7 +54,7 @@ public class ContactController extends AbstractBaseController {
 		pModel.addAttribute("user", request.getRemoteUser());
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNo);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNo);
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {

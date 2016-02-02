@@ -80,11 +80,11 @@ public class ReportsControllers extends AbstractBaseController {
 		pModel.addAttribute("principal", request.getUserPrincipal());
 		pModel.addAttribute("user", request.getRemoteUser());
 		WebClient client = clientManager.getWebClientByUsername(request.getUserPrincipal().getName());
-		if (userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber()))) {
+		if (userAccountService.hasMoreThanOneAccount(client.getUsername())) {
 			pModel.addAttribute("client", client);
 			pModel.addAttribute("updateDate", userAccountService.getUpdateDate());
 			List<AccountTotal> totals = userAccountService
-					.getTotalForUserAccount(new Integer(client.getClientNumber()));
+					.getTotalForUserAccount(client.getUsername());
 			pModel.addAttribute("totals", totals);
 			BigDecimal grandTotal = calculateGrandTotal(totals);
 			pModel.addAttribute("grandTotal", grandTotal);
@@ -92,7 +92,8 @@ public class ReportsControllers extends AbstractBaseController {
 			runMerger("pages/accountList.ftl", pModel, response, request);
 			return "template/pmabase";
 		} else {
-			return "redirect:/reports/details/" + client.getClientNumber();
+			Integer acct = userAccountService.getOnlyAccountForThisUser(client.getUsername());
+			return "redirect:/reports/details/" + acct;
 		}
 	}
 
@@ -129,12 +130,12 @@ public class ReportsControllers extends AbstractBaseController {
 		 * throw an error
 		 */
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNumber);
 		if (!hasRightsToThisAccount) {
 			runMerger("errors/illegalAccess.ftl", pModel, response, request);
 		} else {
 			pModel.addAttribute("hasMoreThanOne",
-					userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
+					userAccountService.hasMoreThanOneAccount(client.getUsername()));
 			StringBuffer sb = new StringBuffer();
 			sb.append(addScriptLibrary("//code.jquery.com/jquery-1.11.1.min.js"));
 			sb.append("\n");
@@ -183,7 +184,7 @@ public class ReportsControllers extends AbstractBaseController {
 		 * throw an error
 		 */
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNumber);
 		if (!hasRightsToThisAccount) {
 			throw new RuntimeException("You do not have permission to view this account");
 		} else {
@@ -262,7 +263,7 @@ public class ReportsControllers extends AbstractBaseController {
 		pModel.addAttribute("acctNo", pAcctNumber);
 		pModel.addAttribute("accountName", userAccountService.getClientName(pAcctNumber));
 		boolean hasRightsToThisAccount = userAccountService
-				.hasRightsToThisAccount(new Integer(client.getClientNumber()), pAcctNumber);
+				.hasRightsToThisAccount(client.getUsername(), pAcctNumber);
 		if (!hasRightsToThisAccount) {
 			throw new RuntimeException("You do not have permission to view this account");
 		}
@@ -284,7 +285,7 @@ public class ReportsControllers extends AbstractBaseController {
 		pModel.addAttribute("quarters", quarterlyReports);
 		pModel.addAttribute("annuals", annualReports);
 		pModel.addAttribute("hasMoreThanOne",
-				userAccountService.hasMoreThanOneAccount(new Integer(client.getClientNumber())));
+				userAccountService.hasMoreThanOneAccount(client.getUsername()));
 		runMerger("pages/reportsAvailable.ftl", pModel, response, request);
 		return "template/pmabase";
 	}
