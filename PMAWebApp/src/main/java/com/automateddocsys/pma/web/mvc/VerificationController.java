@@ -24,6 +24,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.automateddocsys.pma.web.mvc.models.AnswerSet;
@@ -153,7 +154,7 @@ public class VerificationController extends AbstractBaseController {
 	}
 
 	private void loadVerificationQuestion(Model pModel, WebClient client) {
-		int which = random.nextInt(2);
+		int which = random.nextInt(3);
 		int ct = 0;
 		for (ClientAnswer answer : client.getAnswers()) {
 			if (ct == which) {
@@ -191,6 +192,19 @@ public class VerificationController extends AbstractBaseController {
 			HttpServletResponse response) {
 		clientManager.clearAnswers(request.getUserPrincipal().getName());
 		return "redirect:/level2";
+	}
+
+	@RequestMapping(value="/resetAnswersForClient", method = RequestMethod.POST)
+	public String resetQuestionsForClient(Model pModel,
+			@RequestParam(value="clientName") String pClientName,
+			HttpServletRequest request, 
+			HttpServletResponse response) {
+		clientManager.clearAnswers(pClientName);
+		setServers(request,pModel);
+		updateModel(pModel);
+		pModel.addAttribute("userName", pClientName);
+	    runMerger("pages/resetClient.ftl", pModel, response, request);
+		return "template/pmabase";
 	}
 
 	@RequestMapping(value="/reset", method = RequestMethod.GET)

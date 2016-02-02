@@ -1,6 +1,9 @@
 package com.automateddocsys.pma.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -43,5 +46,13 @@ public class TestUtils {
 		pc.setPassword("ABC");
 		pc.setConfirm_password("ABC");
 		assertTrue(pc.doesMatch());
+	}
+	
+	@Test
+	public void testRandom() {
+		Random random = new Random();
+		for (int i = 0; i < 10; i++) {
+			System.out.println(random.nextInt(3));
+		}
 	}
 }
