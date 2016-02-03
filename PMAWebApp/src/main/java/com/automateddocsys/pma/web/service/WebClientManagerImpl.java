@@ -164,7 +164,7 @@ public class WebClientManagerImpl implements WebClientManager {
 	@Override
 	public boolean didSupplyCorrectAnswer(String pUserName, VerificationItem verification) {
 		WebClient client = clientRepository.findByUsername(pUserName);
-		return client.getAnswerFor(verification.getQuestionNumber()).equalsIgnoreCase(verification.getAnswer());
+		return client.getAnswerFor(verification.getQuestionNumber()).trim().equalsIgnoreCase(verification.getAnswer().trim());
 	}
 
 	@Override

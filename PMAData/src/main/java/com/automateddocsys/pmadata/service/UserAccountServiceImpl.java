@@ -222,6 +222,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	@Override
+	@Transactional(value = "transactionManagerPMA", readOnly = true)
 	public Integer getOnlyAccountForThisUser(String pUserName) {
 		UserAccount ua = userRepository.findByUsername(pUserName);
 		List<Permission> permissions = ua.getPermissions();

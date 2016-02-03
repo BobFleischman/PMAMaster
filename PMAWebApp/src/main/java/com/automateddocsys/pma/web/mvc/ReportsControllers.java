@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.supercsv.cellprocessor.ConvertNullTo;
 import org.supercsv.cellprocessor.FmtBool;
 import org.supercsv.cellprocessor.Optional;
@@ -54,7 +55,8 @@ public class ReportsControllers extends AbstractBaseController {
 	ReportsService reportService;
 
 	@RequestMapping(value = { "/list" })
-	public String startingPlace(Model pModel, HttpServletRequest request, HttpServletResponse response,
+	public String startingPlace(Model pModel, RedirectAttributes attr, 
+			HttpServletRequest request, HttpServletResponse response,
 			@CookieValue(value = VerificationController.PMAVERIFICATION, required = false) String pCookieValue) {
 		/**
 		 * If we made it here then we have can assume they have passed all test
@@ -62,16 +64,19 @@ public class ReportsControllers extends AbstractBaseController {
 		 */
 		updateModel(pModel);
 		// see if there is already a cookie here, if not create one
+		//System.out.println("COOKIE IS " + pCookieValue);
 		if (pCookieValue == null) {
 			// see if there is a noCookie attribute on this session
-			Boolean noCookie = (Boolean) request.getSession().getAttribute("noCookie");
-			if (noCookie == null) {
+			Boolean noCookie = (Boolean) request.getSession().getAttribute(VerificationController.NO_COOKIE);
+			//System.out.println("NO COOKIE attribute is " + noCookie);
+			if ((noCookie == null) || (!noCookie)) {
 				// nothing on the session so set the cookie
 				String remoteUser = request.getRemoteUser();
 				Cookie newCookie = new Cookie(VerificationController.PMAVERIFICATION, remoteUser);
 				newCookie.setPath("/");
 				// newCookie.setDomain("secure.prudentmanagement.com");
 				newCookie.setMaxAge(10000);
+				//System.out.println("Adding cookier " + newCookie);
 				response.addCookie(newCookie);
 			}
 		}
@@ -115,7 +120,23 @@ public class ReportsControllers extends AbstractBaseController {
 
 	@RequestMapping(value = { "/details/{acctNumber}" })
 	public String showDetail(@PathVariable(value = "acctNumber") Integer pAcctNumber, Model pModel,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response,
+			@CookieValue(value = VerificationController.PMAVERIFICATION, required = false) String pCookieValue) {
+		if (pCookieValue == null) {
+			// see if there is a noCookie attribute on this session
+			Boolean noCookie = (Boolean) request.getSession().getAttribute(VerificationController.NO_COOKIE);
+			//System.out.println("details NO COOKIE attribute is " + noCookie);
+			if ((noCookie == null) || (!noCookie)) {
+				// nothing on the session so set the cookie
+				String remoteUser = request.getRemoteUser();
+				Cookie newCookie = new Cookie(VerificationController.PMAVERIFICATION, remoteUser);
+				newCookie.setPath("/");
+				// newCookie.setDomain("secure.prudentmanagement.com");
+				newCookie.setMaxAge(10000);
+				//System.out.println("details Adding cookier " + newCookie);
+				response.addCookie(newCookie);
+			}
+		}
 		updateModel(pModel);
 		String formattedDate = dateFormat.format(new Date());
 		pModel.addAttribute("serverTime", formattedDate);

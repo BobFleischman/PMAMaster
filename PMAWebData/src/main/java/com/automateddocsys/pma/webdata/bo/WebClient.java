@@ -304,7 +304,7 @@ public class WebClient implements UserDetails, CredentialsContainer {
 		// else add a new one
 		for (ClientAnswer clientAnswer : answers) {
 			if (clientAnswer.getQuestion().equals(pQuestion)) {
-				clientAnswer.setAnswer(pAnswer);
+				clientAnswer.setAnswer(pAnswer.trim());
 				return;
 			}
 		}

@@ -36,8 +36,8 @@ import com.automateddocsys.pma.webdata.bo.WebClient;
 @Controller
 @RequestMapping("/level2")
 public class VerificationController extends AbstractBaseController {
-	private static final String CLEAR_COOKIE = "clearCookie";
-
+	public static final String CLEAR_COOKIE = "clearCookie";
+	public static final String NO_COOKIE = "noCookie";
 	public static final String PMAVERIFICATION = "pmaverification";
 
 	@Autowired
@@ -63,7 +63,7 @@ public class VerificationController extends AbstractBaseController {
 //	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showVerificationCodeForm(Model pModel,
+	public String showVerificationCodeForm(Model pModel, RedirectAttributes attr,
 			HttpServletRequest request, 
 			HttpServletResponse response,
 			@CookieValue(value=PMAVERIFICATION,required=false) String pCookieValue) {
@@ -93,7 +93,7 @@ public class VerificationController extends AbstractBaseController {
 	}
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public String verifyCode(AnswerSet answerSet, Model pModel,
+	public String verifyCode(AnswerSet answerSet, Model pModel, RedirectAttributes attr,
 			HttpServletRequest request, 
 			HttpServletResponse response, Errors errors) {
 		boolean hasError = false;
@@ -117,10 +117,14 @@ public class VerificationController extends AbstractBaseController {
 			HttpServletRequest request, 
 			HttpServletResponse response,
 			RedirectAttributes redirectAttributes) {
+		//System.out.println(verification);
 		if (clientManager.didSupplyCorrectAnswer(request.getUserPrincipal().getName(),verification)) {
 			grantAuthority();
 			if (!verification.getRememberMe()) {
-				request.getSession().setAttribute("noCookier", true);
+				//System.out.println("Setting No Cookie");
+				request.getSession().setAttribute(NO_COOKIE, true);
+			} else {
+				request.getSession().setAttribute(NO_COOKIE, false);
 			}
 			return "redirect:/reports/list";
 		} else {
@@ -137,6 +141,7 @@ public class VerificationController extends AbstractBaseController {
 		setServers(request,pModel);
 		loadVerificationQuestion(pModel,client);
 		if (pModel.containsAttribute(CLEAR_COOKIE)) {
+			System.out.println("Clearing Cookie");
 			Cookie deleteCookie = new Cookie(PMAVERIFICATION, "invalid");
 			deleteCookie.setMaxAge(0);
 			response.addCookie(deleteCookie);
@@ -162,6 +167,7 @@ public class VerificationController extends AbstractBaseController {
 				vi.setQuestionNumber(answer.getQuestion().getQuestionId());
 				vi.setQuestion(answer.getQuestion().getQuestion());
 				vi.setAnswer("");
+				vi.setRememberMe(true);
 				pModel.addAttribute("verification", vi);
 				break;
 			}
@@ -187,14 +193,14 @@ public class VerificationController extends AbstractBaseController {
 
 
 	@RequestMapping(value="/resetAnswers", method = RequestMethod.POST)
-	public String resetQuestions(Model pModel,
+	public String resetQuestions(Model pModel, RedirectAttributes attr,
 			HttpServletRequest request, 
 			HttpServletResponse response) {
 		clientManager.clearAnswers(request.getUserPrincipal().getName());
 		return "redirect:/level2";
 	}
 
-	@RequestMapping(value="/resetAnswersForClient", method = RequestMethod.POST)
+	@RequestMapping(value="/resetAnswersForClient", method = RequestMethod.GET)
 	public String resetQuestionsForClient(Model pModel,
 			@RequestParam(value="clientName") String pClientName,
 			HttpServletRequest request, 

@@ -4,7 +4,7 @@ public class VerificationItem {
 		private Long questionNumber;
 		private String question;
 		private String answer;
-		private Boolean rememberMe = true;
+		private Boolean rememberMe = false;
 		
 		public Boolean getRememberMe() {
 			return rememberMe;
@@ -39,6 +39,8 @@ public class VerificationItem {
 			builder.append(question);
 			builder.append(", answer=");
 			builder.append(answer);
+			builder.append(", rememberMe=");
+			builder.append(rememberMe);
 			builder.append("]");
 			return builder.toString();
 		}

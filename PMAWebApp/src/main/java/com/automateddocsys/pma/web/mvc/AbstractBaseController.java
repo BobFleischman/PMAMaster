@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import com.automateddocsys.pma.web.service.ContactManager;
@@ -139,5 +140,11 @@ public class AbstractBaseController {
 		return cssTemplate.replace("{0}", pPath);
 	}
 
+	protected RedirectView redirectWithNoParams(String pURL) {
+		RedirectView result = new RedirectView(pURL);
+		result.setExposeModelAttributes(false);
+		result.setExposePathVariables(false);
+		return result;		
+	}
 
 }
