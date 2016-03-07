@@ -24,7 +24,7 @@ public class ClientAnswer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerId;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private PotentialQuestion question;
 	
 	@NotEmpty
