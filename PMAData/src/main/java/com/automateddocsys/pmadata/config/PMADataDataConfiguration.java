@@ -40,6 +40,7 @@ public class PMADataDataConfiguration {
     static {
     	DATABASE_URL = "BOB-WIN8".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
     			"BOB-THINK".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
+    			// "DESKTOP-M6205VC".equalsIgnoreCase(System.getenv("COMPUTERNAME")) ||
     			"ROOT".equalsIgnoreCase(System.getenv("USERNAME")) 
     			? DATABASE_URL_DEV : DATABASE_URL_PMA;
     }
