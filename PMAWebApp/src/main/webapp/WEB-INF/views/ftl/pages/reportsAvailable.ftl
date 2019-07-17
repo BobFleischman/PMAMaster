@@ -63,10 +63,13 @@
     </ul> <h2>Reports available for ${accountName}</h2>
     <div id="outsideTabs">
         <ul>
+<!--        
             <li><a href="#tab2019">Current</a></li>
             <li><a href="#tabs">Pre-2019</a></li>
+-->            
+            <li><a href="#tabs">Current</a></li>
         </ul>
-        <div id="tab2019"><h2>2019 Data Here</h2>
+        <div id="tab2019" style="display:none;"><h2>2019 Data Here</h2>
         <table>
                                 <tr>
                                     <th style="width:30%;">Date</th>

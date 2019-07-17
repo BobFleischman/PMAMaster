@@ -15,7 +15,7 @@ import com.automateddocsys.pma.webdata.bo.WebClient;
 import com.automateddocsys.pmadata.bo.UserAccount;
 import com.automateddocsys.pmadata.service.UserAccountService;
 
-@Component
+// @Component
 public class CopyUsers {
 
 	@Autowired
